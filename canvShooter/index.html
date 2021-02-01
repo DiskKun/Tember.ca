@@ -1,0 +1,650 @@
+<!doctype html>
+
+<html>
+<head>
+	<style>
+		canvas {
+			border: 1px solid #000000;
+			width: 512px;
+			height: 512px;
+		}
+		canvas:hover {
+			cursor:none;
+		}
+		@font-face {
+			font-family: 'PixelFont';
+			src: url('./font.ttf');
+		}
+		p {
+			white-space: pre-line;
+			font-family: 'PixelFont';
+			font-size: 200%;
+		}
+		h1 {
+			font-family: 'PixelFont';
+			font-size: 300%;
+		}
+	</style>
+
+	<title>Asteroid-65535</title>
+</head>
+<body>
+	<canvas id="canvasTBH" width="512" height="512" onmousemove="updatePlayerPos(event)"></canvas>
+	<p>Controls: MOUSE to move, WASD to turn ship, SPACE to fire.</p>
+	<h1>Scoreboard</h1>
+	<p id = "scoreboard"></p>
+	<script>
+		var canvas = document.getElementById("canvasTBH");
+		var ctx = canvas.getContext("2d");
+
+		// image loading
+		var bgReady = false;
+		var bgImage = new Image();
+		bgImage.onload = function () {
+		    bgReady = true;
+		};
+		bgImage.src = "images/bg.png";
+		var playerReady = false;
+		var playerImage = new Image();
+		playerImage.onload = function () {
+		    playerReady = true;
+		};
+		playerImage.src = "images/shipn.png";
+		var fireReady = false;
+		var fireImage = new Image();
+		fireImage.onload = function () {
+		    fireReady = true;
+		};
+		fireImage.src = "images/fireh.png";	
+		var enemyReady = false;
+		var enemyImage = new Image();
+		enemyImage.onload = function () {
+			enemyReady = true;
+		};
+		enemyImage.src = "images/enemy0.png";
+		eImgState = "0";
+
+		var fX = 600;
+		var fY = 600;
+		var fYV = 0;
+		var fXV = 0;
+	
+		var timer = 0;
+		// playervars
+		var pX;
+		var pY;
+		var pLives = 3;
+		var score = 0;
+		var pFacing = "n";
+
+		//enemyvars ; there are tons of these >:)
+		var e1X,
+			e1Y,
+			e2X,
+			e2Y,
+			e3X,
+			e3Y,
+			e4X,
+			e4Y,
+			e5X,
+			e5Y,
+			e6X,
+			e6Y,
+			e7X,
+			e7Y,
+			e8X,
+			e8Y,
+			//	ebnemy velocity
+			e1XV,
+			e1YV,
+			e2XV,
+			e2YV,
+			e3XV,
+			e3YV,
+			e4XV,
+			e4YV,
+			e5XV,
+			e5YV,
+			e6XV,
+			e6YV,
+			e7XV,
+			e7YV,
+			e8XV,
+			e8YV,
+			
+			e1Dead = false,
+			e2Dead = false,
+			e3Dead = false,
+			e4Dead = false,
+			e5Dead = false,
+			e6Dead = false,
+			e7Dead = false,
+			e8Dead = false;
+
+		function setEnemies() {
+			e1X = 0,
+			e1Y = 0,
+			e2X = 240,
+			e2Y = 0,
+			e3X = 480,
+			e3Y = 0,
+			e4X = 0,
+			e4Y = 240,
+			e5X = 480,
+			e5Y = 240,
+			e6X = 0,
+			e6Y = 480,
+			e7X = 240,
+			e7Y = 480,
+			e8X = 480,
+			e8Y = 480,
+			
+			e1XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e1YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e2XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e2YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e3XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e3YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e4XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e4YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e5XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e5YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e6XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e6YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e7XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e7YV = Math.floor((Math.random() * 3) - 1) * 2,
+			e8XV = Math.floor((Math.random() * 3) - 1) * 2,
+			e8YV = Math.floor((Math.random() * 3) - 1) * 2;
+		}
+		var wPressed = false;
+		var aPressed = false;
+		var sPressed = false;
+		var dPressed = false;
+		var spacePressed = false;
+		var spaceLast = false;
+
+		document.addEventListener("keydown", keyDownHandler, false);
+		document.addEventListener("keyup", keyUpHandler, false);
+
+		window.addEventListener('keydown', function(e) {
+ 			if(e.keyCode == 32 && e.target == document.body) {
+  				e.preventDefault();
+ 	 		}
+		});	
+		function keyDownHandler(e) {
+			if (e.keyCode == 87) {
+					wPressed = true;
+			} else if (e.keyCode == 65) {
+					aPressed = true;
+			} else if (e.keyCode == 83) {
+					sPressed = true;
+			} else if (e.keyCode == 68) {
+					dPressed = true;
+			} else if (e.keyCode == 32) {
+					spacePressed = true;
+			}
+		}
+
+		function keyUpHandler(e) {
+			if (e.keyCode == 87) {
+				wPressed = false;
+			} else if (e.keyCode == 65) {
+				aPressed = false;
+			} else if (e.keyCode == 83) {
+				sPressed = false;
+			} else if (e.keyCode == 68) {
+				dPressed = false;
+			} else if (e.keyCode == 32) {
+				spacePressed = false;
+				spaceLast = false;
+			}
+		}
+
+		function updatePlayerPos(event) {
+			var tempX = event.clientX - 24;
+			var tempY = event.clientY - 24;
+			if (tempX & 1) {
+				tempX -= 1;
+			}
+			if (tempY & 1) {
+				tempY -= 1;
+			}
+			pX = tempX;
+			pY = tempY;
+		}
+
+		function  updateEnemyImage() {
+			if (eImgState === "0") {
+				enemyImage.src = "images/enemy1.png";
+				eImgState = "1";
+			} else if (eImgState === "1") {
+				enemyImage.src = "images/enemy2.png";
+				eImgState = "2";
+			} else if (eImgState === "2") {
+				enemyImage.src = "images/enemy3.png";
+				eImgState = "3";
+			} else if (eImgState === "3") {
+				enemyImage.src = "images/enemy0.png";
+				eImgState = "0";
+			}
+
+		}
+
+		function eCollideFire() {					
+
+		if (fX <= (e1X + enemyImage.width) && e1X <= (fX + fireImage.width)) {
+				if (fY <= (e1Y + enemyImage.height) && e1Y <= (fY + fireImage.height)) {
+					if (e1Dead === false) {
+						e1Dead = true;
+						e1XV = 0;
+						e1YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e2X + enemyImage.width) && e2X <= (fX + fireImage.width)) {
+				if (fY <= (e2Y + enemyImage.height) && e2Y <= (fY + fireImage.height)) {
+					if (e2Dead === false) {
+						e2Dead = true;
+						e2XV = 0;
+						e2YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e3X + enemyImage.width) && e3X <= (fX + fireImage.width)) {
+				if (fY <= (e3Y + enemyImage.height) && e3Y <= (fY + fireImage.height)) {
+					if (e3Dead === false) {
+						e3Dead = true;
+						e3XV = 0;
+						e3YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e4X + enemyImage.width) && e4X <= (fX + fireImage.width)) {
+				if (fY <= (e4Y + enemyImage.height) && e4Y <= (fY + fireImage.height)) {
+					if (e4Dead === false) {
+						e4Dead = true;
+						e4XV = 0;
+						e4YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e5X + enemyImage.width) && e5X <= (fX + fireImage.width)) {
+				if (fY <= (e5Y + enemyImage.height) && e5Y <= (fY + fireImage.height)) {
+					if (e5Dead === false) {
+						e5Dead = true;
+						e5XV = 0;
+						e5YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e6X + enemyImage.width) && e6X <= (fX + fireImage.width)) {
+				if (fY <= (e6Y + enemyImage.height) && e6Y <= (fY + fireImage.height)) {
+					if (e6Dead === false) {
+						e6Dead = true;
+						e6XV = 0;
+						e6YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e7X + enemyImage.width) && e7X <= (fX + fireImage.width)) {
+				if (fY <= (e7Y + enemyImage.height) && e7Y <= (fY + fireImage.height)) {
+					if (e7Dead === false) {
+						e7Dead = true;
+						e7XV = 0;
+						e7YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		if (fX <= (e8X + enemyImage.width) && e8X <= (fX + fireImage.width)) {
+				if (fY <= (e8Y + enemyImage.height) && e8Y <= (fY + fireImage.height)) {
+					if (e8Dead === false) {
+						e8Dead = true;
+						e8XV = 0;
+						e8YV = 0;
+						score += 1;
+					}
+				}
+			}
+
+		}
+
+		function eCollidePlayer() {					
+
+		if (pX <= (e1X + enemyImage.width) && e1X <= (pX + playerImage.width)) {
+				if (pY <= (e1Y + enemyImage.height) && e1Y <= (pY + playerImage.height)) {
+					if (e1Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e2X + enemyImage.width) && e2X <= (pX + playerImage.width)) {
+				if (pY <= (e2Y + enemyImage.height) && e2Y <= (pY + playerImage.height)) {
+					if (e2Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e3X + enemyImage.width) && e3X <= (pX + playerImage.width)) {
+				if (pY <= (e3Y + enemyImage.height) && e3Y <= (pY + playerImage.height)) {
+					if (e3Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e4X + enemyImage.width) && e4X <= (pX + playerImage.width)) {
+				if (pY <= (e4Y + enemyImage.height) && e4Y <= (pY + playerImage.height)) {
+					if (e4Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e5X + enemyImage.width) && e5X <= (pX + playerImage.width)) {
+				if (pY <= (e5Y + enemyImage.height) && e5Y <= (pY + playerImage.height)) {
+					if (e5Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e6X + enemyImage.width) && e6X <= (pX + playerImage.width)) {
+				if (pY <= (e6Y + enemyImage.height) && e6Y <= (pY + playerImage.height)) {
+					if (e6Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e7X + enemyImage.width) && e7X <= (pX + playerImage.width)) {
+				if (pY <= (e7Y + enemyImage.height) && e7Y <= (pY + playerImage.height)) {
+					if (e7Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		if (pX <= (e8X + enemyImage.width) && e8X <= (pX + playerImage.width)) {
+				if (pY <= (e8Y + enemyImage.height) && e8Y <= (pY + playerImage.height)) {
+					if (e8Dead === false) {
+						pLives -= 1;
+						setEnemies();
+					}
+				}
+			}
+
+		}
+
+
+		// Main game loop
+		function draw() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			//draw in images
+			if (bgReady) {
+			    ctx.drawImage(bgImage, 0, 0);
+			}
+			if (playerReady) {
+			    ctx.drawImage(playerImage, pX, pY);
+			}
+			if (fireReady) {
+				ctx.drawImage(fireImage, fX, fY);
+			}
+			if (enemyReady) {
+				if (e1Dead === false) {
+					ctx.drawImage(enemyImage, e1X, e1Y);
+				}
+				if (e2Dead === false) {
+					ctx.drawImage(enemyImage, e2X, e2Y);
+				}
+				if (e3Dead === false) {
+					ctx.drawImage(enemyImage, e3X, e3Y);
+				}
+				if (e4Dead === false) {
+					ctx.drawImage(enemyImage, e4X, e4Y);
+				}
+				if (e5Dead === false) {
+					ctx.drawImage(enemyImage, e5X, e5Y);
+				}
+				if (e6Dead === false) {
+					ctx.drawImage(enemyImage, e6X, e6Y);
+				}
+				if (e7Dead === false) {
+					ctx.drawImage(enemyImage, e7X, e7Y);
+				}
+				if (e8Dead === false) {
+					ctx.drawImage(enemyImage, e8X, e8Y);
+				}
+			}
+
+			//	check for edges
+					
+			if (e1X <= 0 && e1XV === -2) {
+				e1XV = 2;
+			} else if (e1X >= 480 && e1XV === 2) {
+				e1XV = -2;
+			}
+			if (e1Y <= 0 && e1YV === -2) {
+				e1YV = 2;
+			} else if (e1Y >= 480 && e1YV === 2) {
+				e1YV = -2;
+			}
+					
+			if (e2X <= 0 && e2XV === -2) {
+				e2XV = 2;
+			} else if (e2X >= 480 && e2XV === 2) {
+				e2XV = -2;
+			}
+			if (e2Y <= 0 && e2YV === -2) {
+				e2YV = 2;
+			} else if (e2Y >= 480 && e2YV === 2) {
+				e2YV = -2;
+			}
+					
+			if (e3X <= 0 && e3XV === -2) {
+				e3XV = 2;
+			} else if (e3X >= 480 && e3XV === 2) {
+				e3XV = -2;
+			}
+			if (e3Y <= 0 && e3YV === -2) {
+				e3YV = 2;
+			} else if (e3Y >= 480 && e3YV === 2) {
+				e3YV = -2;
+			}
+					
+			if (e4X <= 0 && e4XV === -2) {
+				e4XV = 2;
+			} else if (e4X >= 480 && e4XV === 2) {
+				e4XV = -2;
+			}
+			if (e4Y <= 0 && e4YV === -2) {
+				e4YV = 2;
+			} else if (e4Y >= 480 && e4YV === 2) {
+				e4YV = -2;
+			}
+					
+			if (e5X <= 0 && e5XV === -2) {
+				e5XV = 2;
+			} else if (e5X >= 480 && e5XV === 2) {
+				e5XV = -2;
+			}
+			if (e5Y <= 0 && e5YV === -2) {
+				e5YV = 2;
+			} else if (e5Y >= 480 && e5YV === 2) {
+				e5YV = -2;
+			}
+					
+			if (e6X <= 0 && e6XV === -2) {
+				e6XV = 2;
+			} else if (e6X >= 480 && e6XV === 2) {
+				e6XV = -2;
+			}
+			if (e6Y <= 0 && e6YV === -2) {
+				e6YV = 2;
+			} else if (e6Y >= 480 && e6YV === 2) {
+				e6YV = -2;
+			}
+					
+			if (e7X <= 0 && e7XV === -2) {
+				e7XV = 2;
+			} else if (e7X >= 480 && e7XV === 2) {
+				e7XV = -2;
+			}
+			if (e7Y <= 0 && e7YV === -2) {
+				e7YV = 2;
+			} else if (e7Y >= 480 && e7YV === 2) {
+				e7YV = -2;
+			}
+					
+			if (e8X <= 0 && e8XV === -2) {
+				e8XV = 2;
+			} else if (e8X >= 480 && e8XV === 2) {
+				e8XV = -2;
+			}
+			if (e8Y <= 0 && e8YV === -2) {
+				e8YV = 2;
+			} else if (e8Y >= 480 && e8YV === 2) {
+				e8YV = -2;
+			}
+
+			//	apply velocity to bullets
+			fX += fXV;
+			fY += fYV;
+			
+			//	apply velocity to enemies
+			e1X += e1XV,
+			e1Y += e1YV;
+			e2X += e2XV,
+			e2Y += e2YV;
+			e3X += e3XV,
+			e3Y += e3YV;
+			e4X += e4XV,
+			e4Y += e4YV;
+			e5X += e5XV,
+			e5Y += e5YV;
+			e6X += e6XV,
+			e6Y += e6YV;
+			e7X += e7XV,
+			e7Y += e7YV;
+			e8X += e8XV,
+			e8Y += e8YV;
+			
+			// Input handling
+			if (wPressed === true) {
+				playerImage.src = "images/shipn.png";
+				pFacing = "n";
+			} else if (aPressed === true) {
+				playerImage.src = "images/shipw.png";
+				pFacing = "w";
+			} else if (sPressed === true) {
+				playerImage.src = "images/ships.png";
+				pFacing = "s";
+			} else if (dPressed === true) {
+				playerImage.src = "images/shipe.png";
+				pFacing = "e";
+			} else if (spacePressed === true) {
+				if (spaceLast === false) {
+					fX = pX;
+					fY = pY;
+					if (pFacing === "n") {
+						fireImage.src = "images/firev.png";
+						fYV = -4;
+						fXV = 0;
+					} else if (pFacing === "e") {
+						fireImage.src = "images/fireh.png";
+						fYV = 0;
+						fXV = 4;
+					} else if (pFacing === "s") {
+						fireImage.src = "images/firev.png";
+						fXV = 0;
+						fYV = 4;
+					} else if (pFacing === "w") {
+						fireImage.src = "images/fireh.png";
+						fXV = -4;
+						fYV = 0;
+					}
+					spaceLast = true;
+				}
+			}
+		//	Collision handling
+		eCollideFire();
+		eCollidePlayer();
+
+
+		timer += 0.01;
+		//display score
+		ctx.font = "32px PixelFont";
+		ctx.fillStyle = "white";
+		var livesStr = "Lives: " + pLives;
+		ctx.fillText(livesStr, 10, 20);
+		var scoreStr = "Score: " + score;
+		ctx.fillText(scoreStr, 10, 52);
+		var timerStr = "Time: " + Math.round(timer * 100)/100;
+		ctx.fillText(timerStr, 10, 84);
+
+		if (pLives <= 0) {
+			setEnemies();
+			pLives = 3;
+			pX = 240;
+			pY = 240;
+			score = 0;
+			e1Dead = false;
+			e2Dead = false;
+			e3Dead = false;
+			e4Dead = false;
+			e5Dead = false;
+			e6Dead = false;
+			e7Dead = false;
+			e8Dead = false;
+			timer = 0;
+			alert("Oh no! You've been struck down.");
+		}
+
+		if (e1Dead && e2Dead && e3Dead && e4Dead && e5Dead && e6Dead && e7Dead && e8Dead) {
+			setEnemies();
+			pLives = 3;
+			pX = 240;
+			pY = 240;
+			e1Dead = false;
+			e2Dead = false;
+			e3Dead = false;
+			e4Dead = false;
+			e5Dead = false;
+			e6Dead = false;
+			e7Dead = false;
+			e8Dead = false;
+			document.getElementById("scoreboard").innerHTML += Math.round(timer*100)/100 + " seconds\n";
+			alert("You've saved Asteroid-65535 from the Evil Aliens of A256 in " + Math.round(timer*100)/100 + " seconds!");
+
+			timer = 0;	
+		}
+		}
+		setInterval(draw, 10);
+		setInterval(updateEnemyImage, 100);
+		setEnemies();
+	</script>
+</body>
+</html>

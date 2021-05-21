@@ -1,0 +1,28 @@
+a {
+  font-family: Courier, monospace;
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+#net {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}
+h1, h2, p, footer {
+  font-family: Courier, monospace;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
+}
+.footer a {
+  margin-right: 5px;
+  display: inline-block;
+}
+

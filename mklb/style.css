@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+}
+h1 {
+    color: #00ff00;
+}
+h2 {
+	color: lightgrey;
+}
+h3 {
+	color: red;
+}
+a {
+	color: blue;
+}
+table, th, td {
+    border: 1px solid white;
+}
+li, p, th, td {
+	color: white;
+}
+img {
+	position:absolute;
+	right:0px;
+}

@@ -15,11 +15,60 @@
     <title>TemberNet</title>
     <link rel="shortcut icon" href="./ntpicon.png"/>
     <link rel="stylesheet" href="style.css">
+	
+	<script>
+	var l1;
+	var l2;
+	var l3;
+	var l4;
+	document.addEventListener('keydown', function(event) {
+	    if(event.keyCode == 84) {
+			l1 = "t";
+		} else if(event.keyCode == 82) {
+				 l2 = "r";
+		} else if(event.keyCode == 65) {
+				 l3 = "a";
+		} else if(event.keyCode == 78) {
+				 l4 = "n";
+		} else if(event.keyCode == 83) {
+			if (l1 === "t" && l2 === "r" && l3 === "a" && l4 === "n") {				
+	        	document.getElementById("header").style.backgroundColor = "#5bcffb";
+	        	document.getElementById("p").style.backgroundColor = "#f5abb9";
+	        	document.getElementById("w").style.backgroundColor = "#ffffff";
+	        	document.getElementById("p2").style.backgroundColor = "#f5abb9";
+	        	document.getElementById("f").style.backgroundColor = "#5bcffb";
+			}
+		}
+	});
+	</script>
+
+	<style>
+		#header {
+			margin:0px;
+			padding:10px;
+			border-radius:10px 10px 0px 0px;
+		}
+		#p, #p2 {
+			margin:0px;
+			padding:10px;
+		}
+		#w {
+			margin:0px;
+			padding:10px;
+		}
+		#f {
+			font-size:50%;
+			border-radius: 0px 0px 10px 10px;
+			margin:0px;
+			padding:10px;
+		}
+	</style>
   </head>
   <body>
-    <h1>TemberNet Web Portal</h1>
+    <h1 id="header">Tember.ca</h1>
+	<p id="p">Here's a list of pages on this site to check out:</p>
     <div class="portal">
-      <ul>
+      <ul id="w">
 		<!--<li><a href="./mc.html">Minecraft Server </a></li>-->
 		<!--<li><a href="./ssh.html">SSH-Chat Server</a></li>-->
 		<!--<li><a href="./pat.html">Public Access Texts</a></li>-->
@@ -33,6 +82,8 @@
 		<li><a href="./contact.html">Contact Me --></a></li>
       </ul>
     </div>
+	<p id="p2">I hope you enjoy your stay :)</p>
+	<p id="f">©2021</p>
     <footer class = "footer"><a href="./net.html" id = "net">π</a></footer>
   </body>
 </html>

@@ -21,22 +21,27 @@
 	var l2;
 	var l3;
 	var l4;
+	var l5;
+	var l6;
 	document.addEventListener('keydown', function(event) {
-	    if(event.keyCode == 84) {
-			l1 = "t";
-		} else if(event.keyCode == 82) {
-				 l2 = "r";
+	    if(event.keyCode == 78) {
+			l1 = "n";
 		} else if(event.keyCode == 65) {
-				 l3 = "a";
-		} else if(event.keyCode == 78) {
-				 l4 = "n";
-		} else if(event.keyCode == 83) {
-			if (l1 === "t" && l2 === "r" && l3 === "a" && l4 === "n") {				
-	        	document.getElementById("header").style.backgroundColor = "#5bcffb";
-	        	document.getElementById("p").style.backgroundColor = "#f5abb9";
-	        	document.getElementById("w").style.backgroundColor = "#ffffff";
-	        	document.getElementById("p2").style.backgroundColor = "#f5abb9";
-	        	document.getElementById("f").style.backgroundColor = "#5bcffb";
+				 l2 = "a";
+		} else if(event.keyCode == 84) {
+				 l3 = "t";
+		} else if(event.keyCode == 76) {
+				 l4 = "l";
+		} else if(event.keyCode == 73) {
+				 l5 = "i";
+		} else if(event.keyCode == 69) {
+			if (l1 === "n" && l2 === "a" && l3 === "t" && l4 === "l" && l5 === "i") {				
+	        	//document.getElementById("header").style.backgroundColor = "#5bcffb";
+	        	//document.getElementById("p").style.backgroundColor = "#f5abb9";
+	        	//document.getElementById("w").style.backgroundColor = "#ffffff";
+	        	//document.getElementById("p2").style.backgroundColor = "#f5abb9";
+	        	//document.getElementById("f").style.backgroundColor = "#5bcffb";
+	window.location.href = "nat.html";
 			}
 		}
 	});

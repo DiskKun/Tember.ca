@@ -1,0 +1,117 @@
+<html>
+<style>
+h1 {
+	color: pink;
+}
+h2 {
+	color: purple;
+}
+body {
+	background-color: beige;
+	text-align: center;
+}
+</style>
+<script> 
+
+
+	function Hi() {
+		var form = document.getElementById("inp");
+		var body = document.getElementById("body");
+		var rawText = form.value;
+		var text = rawText.replaceAll('.', '');
+		text = text.replaceAll('?', '');
+		text = text.replaceAll("'", '');
+		text = text.replaceAll(',', '');
+		text = text.replaceAll('!', '');
+		text = text.toLowerCase();
+		console.log(text);
+		switch(text) {
+			case "hi":
+				write("hi you");
+				break;
+			case "i love you":
+				write("i love you more");
+				break;
+			case "not even":
+				write("prove it then");
+				break;
+			case "youre perfect":
+				write("That's you!");
+				break;
+			case "i miss you":
+				write("I miss you too baby");
+				break;
+			case "youre beautiful":
+				write("you are beautifuller");
+				break;
+			case "i miss houston":
+				write("He misses you too");
+				break;
+			case "youre a million miles away":
+				write("but never more than a phone call");
+				break;
+			case "your eyes are so beautiful":
+				write("your eyes are deep like davy jones' locker");
+				break;
+			case "i love you so much":
+				write("I love you so much more");
+				break;
+			case "you make me happy":
+				write("you make me happier!");
+				break;
+			case "youre so beautiful":
+				write("nuh uh");
+				break;
+			case "yuh huh":
+				write("nuh uh that's you <3");
+				break;
+			case "baby":
+				var r = Math.floor(Math.random() * 3);
+				if (r === 0) {
+					write("yes darling?");
+				} else if (r === 1) {
+					write("yes dearest?");
+				} else if (r === 2) {
+					write("yes my love?");
+				}
+				break;
+			case "youre perfect":
+				write("that is YOU.");
+				break;
+			case "love":
+				write("yes my darling girl?");
+				break;
+			case "may i see your face":
+				var r = Math.floor(Math.random() * 8) + 1;
+				write("<img src=me/" + r + ".jpg width=500px>");
+				break;
+			case "hello":
+				write("hi babydoll ;)");
+				break;
+			case "may i see houston":
+				var r = Math.floor(Math.random() * 8) + 1;
+				write("<img src=houston/" + r + ".jpg width=500px>");
+				break;
+		}
+
+		
+	}
+	function write(s) {
+		var response = document.getElementById("response");
+		response.innerHTML = s + "<br>" + response.innerHTML;
+	}
+
+
+
+</script>
+	<body id="body">
+		<h2>Talk to Lucy!!!</h2>
+		<h1> I love you <3 </h1>
+		<p id="body"><a href="https://tember.ca">Cool website!</a> </p>
+		
+
+			<input id="inp" type="text">
+		<button onclick="Hi()">Hi!</button>
+		<p id="response"> </p>
+	</body>
+</html>

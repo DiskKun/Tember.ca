@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<style>
+body {
+	background-color:#111111;
+	font-family: courier;
+	color: #FFFFFF;
+}
+				#content {
+					white-space:pre;
+				}
+				span {
+					display: inline-block;
+				}
+		</style>
+	</head>
+	<body>
+		<p id="content"><span id="cursor">|</span></p>
+		<script>
+			var cursor = true;
+			var speed = 250;
+			var chars = ["\r", ">", " "];
+			var content = document.getElementById('content');
+			var validChars = " qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM`1234567890-=~!@#$%^&*()_+[]\\{}|;':,./<>?".split('');
+			var command = "";
+			var writing = false;
+			var message = "";
+
+			updateContent();
+
+			setInterval(() => {
+				if(cursor) {
+					document.getElementById('cursor').style.opacity = 0;
+					cursor = false;
+				}else {
+					document.getElementById('cursor').style.opacity = 1;
+					cursor = true;
+				}
+
+			}, speed);
+
+			setInterval(() => {
+				if (writing) {
+					s = message.split('');
+					chars.push(s.shift());
+					message = s.join('');
+					updateContent();
+					document.getElementById('cursor').style.opacity = 0;
+					if (message.length === 0) {
+						writing = false;
+					}
+				}
+			}, 25);
+
+			document.addEventListener('keydown', function(event) {
+				if (!writing) {
+
+					if (validChars.includes(event.key)) {
+						chars.push(event.key);
+						command += event.key;
+						updateContent();
+						console.log(chars);
+					} else if (event.key == "Enter") {
+						if (command != "") {
+							runCommand();
+							command = "";
+						}
+					} else if (event.key == "Backspace") {
+						if (chars.join('').slice(-3) != "\r> ") {
+
+							command = command.substring(0, command.length - 1);
+							chars.pop();
+							updateContent();
+						}
+					}
+				}
+			});
+
+			function runCommand() {
+				command = command.toLowerCase();
+				if (command == "help") {
+					message = "Here is a help menu!";
+				} else {
+					message = "Unrecognized command. Type \"help\" for a list of commands.";
+				}
+				//chars.push("\r", message, "\r> ");
+				message = "\r" + message + "\r> ";
+				writing = true;
+			}
+
+			function updateContent() {
+				var text = "";
+				for (let i = 0; i < chars.length; i++) {
+					text += (chars[i]);
+				}
+				content.innerHTML = text + "<span id=\"cursor\">|</span>";
+			}
+		</script>
+
+	</body>
+</html>

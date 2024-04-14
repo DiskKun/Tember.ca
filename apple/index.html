@@ -1,0 +1,315 @@
+<html>
+<head>
+    <style>
+        body {
+            background-color: #111111;
+            font-family: courier;
+            color: #FFFFFF;
+            padding-right:
+        }
+
+        #content {
+            /* white-space: pre; */
+        }
+
+        span {
+            display: inline-block;
+        }
+
+        div {
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p id="content"><span id="cursor">|</span></p>
+    </div>
+    <script>var cursor = true;
+        var speed = 250;
+        var chars = ["After all that running, the apple stops to catch its breath, and you do the same. <br>\""];
+        var content = document.getElementById('content');
+        var validChars = " qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890-=~!@#$%^&*()_+[]{}|;':,./?".split('');
+        var ignoredChars = "!@#$%^&*(),./;'[]\\-=`<>?:{}|_+~\";".split('');
+        var command = "";
+        var writing = false;
+        var message = "";
+        var unalteredCommand = "";
+        var path = 0;
+        var commandPath = 0;
+        var score = [false, false, false, false, false, false, false];
+        var eatMessage = "";
+        var endMessage = "<br>\"";
+        var end = false;
+
+        updateContent();
+
+        setInterval(() => {
+            if (!end) {
+                if (cursor) {
+                    document.getElementById('cursor').style.opacity = 0;
+                    cursor = false;
+                } else {
+                    document.getElementById('cursor').style.opacity = 1;
+                    cursor = true;
+                }
+            } else {
+                document.getElementById('cursor').style.opacity = 0;
+            }
+
+
+        }, speed);
+
+        setInterval(() => {
+            if (writing) {
+                s = message.split('');
+                chars.push(s.shift());
+                message = s.join('');
+                if (chars[chars.length - 1] == "<") {
+                    chars.push(s.shift());
+                    message = s.join('');
+                    chars.push(s.shift());
+                    message = s.join('');
+                }
+
+                updateContent();
+                document.getElementById('cursor').style.opacity = 0;
+                if (message.length === 0) {
+                    writing = false;
+                    window.scrollTo(0, document.body.scrollHeight);
+                }
+            }
+        }, 25);
+
+        document.addEventListener('keydown', function (event) {
+            if (!writing && !end) {
+
+                if (validChars.includes(event.key)) {
+                    chars.push(event.key);
+                    command += event.key;
+                    updateContent();
+                } else if (event.key == "Enter") {
+                    if (command != "") {
+                        runCommand();
+                        command = "";
+                    }
+                } else if (event.key == "Backspace") {
+                    if (chars.join('').slice(-1) != "\"") {
+                        command = command.substring(0, command.length - 1);
+                        chars.pop();
+                        updateContent();
+                    }
+                }
+            }
+        });
+
+        function runCommand() {
+            unalteredCommand = command;
+            command = command.toLowerCase();
+            for (i in command) {
+                for (o in ignoredChars) {
+                    if (command[i] == ignoredChars[o]) {
+                        command = command.replaceAll(ignoredChars[o], '');
+                    }
+                }
+            }
+            // general commands
+            if (command == "hello" || command == "hi") {
+                appleSay("Don't '" + command + "' me!!");
+            } else if (command.includes("eat") && (command.includes("wont") || command.includes("dont") || command.includes("not"))) {
+                if (path === 0) {
+                    appleSay("Thank you... for not eating me... not sure why you would in the first place, we've hardly talked!");
+                } else if (path == 1) {
+                    eatSay("Oh, goodness, thank you... thank you so-", "But he was cut off, as authorities burst through the door and arrested you both. The apple was charged with first-degree murder, and you were found guilty as an accomplice. <br>The End.");
+                } else if (path == 2) {
+                    eatSay("Thank you! I knew I could trust you,", "But the apple was wrong. As an employee of Harthridge Hills Mental Asylum, it was your duty to bring the escaped patient back alive and well, so the public need not worry about someone on the loose who killed their own mother. <br>The End.");
+                } else if (path == 3) {
+                    eatSay("Oh good... but what will it matter! A human can't love an apple...", "But your beloved partner can't continue, as the witch reappears before you! \"Weeheehee!!!\" she giggles. \"Interspecies love, I will not condone! Time for you to join in on the fun!\" And with that, you are turned into an apple as well! <br>The End.");
+                }
+            } else if (command.includes("eat")) {
+                if (path === 0) {
+                    appleSay("Uh, nuh uh. I don't think so.");
+                } else if (path == 1) {
+                    eatSay("AAHHHHHH!!!", "You lick your lips, and smile, knowing now that with the murderer dead, he won't fess up to the authorities about your involvement! <br>The End.");
+                } else if (path == 2) {
+                    eatSay("AAHHHHHH!!!", "You felt like it was the right thing to do. A net positive, on society and on the apple. He is no longer tormented by his own mental anguish, and the world is no longer tormented by the existence of someone who killed their own mother. <br>The End.");
+                } else if (path == 3) {
+                    eatSay("AAHHHHHH!!!", "The wife did always have good taste. <br>The End.")
+                }
+            }
+            // path 1 commands
+            if (path == 1) {
+                if (command.includes("bob")) {
+                    appleSay("Bob... I swear, I swear on my life I didn't know it was him! He was my friend...");
+                    score[5] = true;
+                } else if (command.includes("judy")) {
+                    appleSay("Judy... she's the one who hired me to do it...");
+                    score[6] = true;
+                }
+            } else if (path == 2) {
+                if (command.includes("bob")) {
+                    appleSay("Bob... My father... He took me there and left me... What did I do??");
+                    score[5] = true;
+                } else if (command.includes("judy")) {
+                    appleSay("Judy... My mother... She was there, and then she wasn't...");
+                    score[6] = true;
+                }
+            } else if (path == 3) {
+                if (command.includes("bob")) {
+                    appleSay("Bob... Our handsome son... do you think he's okay? He will see me now and recoil in horror!");
+                    score[5] = true;
+                } else if (command.includes("judy")) {
+                    appleSay("Judy... Our beautiful daughter... where is she now? What will she think of what I've become?");
+                    score[6] = true;
+                }
+            } else if (path == 4) {
+                if (command.includes("bob")) {
+                    appleSay("Bob... He's always been a good friend. The real backbone of the band.");
+                    score[5] = true;
+                } else if (command.includes("judy")) {
+                    appleSay("Jude... Hey, her songs are good, but she keeps pushing! She can have the B-sides. Those are hers.");
+                    score[6] = true;
+                }
+            } else if (path == 5) {
+                if (command.includes("bob")) {
+                    appleSay("Bob? Who's that?");
+                    score[5] = true;
+                } else if (command.includes("judy")) {
+                    appleSay("Judy? I don't know that name.");
+                    score[6] = true;
+                }
+            }
+            if (path === 0 || path === 1) {
+                if (command.includes("what did you") || command.includes("what have you") || command.includes("whatd you")) {
+                    commandPath = 1;
+                    score[0] = true;
+                    appleSay("It’s horrible... I’ll never forgive myself... I killed a man.");
+                } else if (command.includes("whod you") || command.includes("who did you")) {
+                    commandPath = 1;
+                    score[1] = true;
+                    appleSay("A man named Bob. I never would have done it...");
+                } else if (command.includes("why did you")) {
+                    commandPath = 1;
+                    score[2] = true;
+                    appleSay("I was paid... But I didn’t know who it was until...")
+                } else if (command.includes("until")) {
+                    commandPath = 1;
+                    score[3] = true;
+                    appleSay("Until I killed him! Obviously!! Oh, god, what am I gonna do?! I'm cooked!");
+                } else if (command.includes("paid")) {
+                    commandPath = 1;
+                    score[4] = true;
+                    appleSay("Judy paid me... but again, I didn't know!! I only realized after I pulled the trigger!");
+                }
+            }
+
+            // path 2 commands
+            if (path === 0 || path === 2) {
+                if (command.includes("running")) {
+                    commandPath = 2;
+                    score[0] = true;
+                    appleSay("I'm running from the evil people! From the building I was in!");
+                } else if (command.includes("building")) {
+                    commandPath = 2;
+                    score[1] = true;
+                    appleSay("The mental hospital... the prison! Keep me away from there, I must never go back.");
+                } else if ((command.includes("why") || command.includes("what")) && command.includes("hospital")) {
+                    commandPath = 2;
+                    score[2] = true;
+                    appleSay("My father put me there! What did I do? Ask him!");
+                } else if (command.includes("father") || command.includes("dad")) {
+                    commandPath = 2;
+                    score[3] = true;
+                    appleSay("A twisted man... His name is Bob. He hated mom and he hates me!");
+                } else if (command.includes("mother") || command.includes("mom")) {
+                    commandPath = 2;
+                    score[4] = true;
+                    appleSay("My sweet mother... her husband was so awful to her. I had to help in some way.");
+                }
+            }
+            // path 3 commands
+            if (path === 0 || path === 3) {
+                if ((command.includes("what") && command.includes("happen")) || command.includes("did what") || command.includes("what did she") || command.includes("what did the")) {
+                    commandPath = 3;
+                    score[0] = true;
+                    appleSay("Can't you see? I've been turned into an apple!");
+                } else if (command.includes("who") && command.includes("are")) {
+                    commandPath = 3;
+                    score[1] = true;
+                    appleSay("What are you talking about?? I'm your wife... Did the she mess with your mind too?");
+                } else if (command.includes("witch")) {
+                    commandPath = 3;
+                    score[2] = true;
+                    appleSay("I don't know who the witch is. Some old hag! Hopped out from the bushes, did this to me, and flew away on her broomstick!");
+                } else if (command.includes("where")) {
+                    commandPath = 3;
+                    score[3] = true;
+                    appleSay("Who knows?? Oh, and what about our children!!? What will they think?");
+                } else if ((command.includes("who") && (command.includes("turned") || command.includes("did this"))) || command.includes("did who")) {
+                    commandPath = 3;
+                    score[4] = true;
+                    appleSay("That old witch!!");
+                }
+            }
+            // path 4 commands
+            if (path === 0 || path === 2) {
+
+            }
+            // path 5 commands
+            if (path === 0 || path === 2) {
+
+            }
+
+            if (message == "") {
+                appleSay("Huh?");
+            }
+
+
+            var c = 0;
+            for (i in score) {
+                if (score[i] == true) {
+                    c += 1;
+                }
+                if (c >= 5) {
+                    if (end) {
+                        eatMessage = "";
+                    } else {
+                        eatMessage = " \"You're not going to eat me, are you?\"";
+                    }
+                }
+            }
+
+            if (unalteredCommand[unalteredCommand.length - 1] == "?") {
+                message = "\" you asked. <br>" + message + eatMessage + endMessage;
+            } else if (unalteredCommand[unalteredCommand.length - 1] == "!") {
+                message = "\" you yelled. <br>" + message + eatMessage + endMessage;
+            } else {
+                message = "\" you said. <br>" + message + eatMessage + endMessage;
+            }
+            if (path === 0) {
+                path = commandPath;
+            }
+
+            writing = true;
+        }
+
+        function updateContent() {
+            var text = "";
+            for (let i = 0; i < chars.length; i++) {
+                text += (chars[i]);
+            }
+            content.innerHTML = text + "<span id=\"cursor\">|</span>";
+        }
+
+        function appleSay(s) {
+            message = "\"" + s + "\" said the apple.";
+        }
+
+        function eatSay(s, t) {
+            message = "\"" + s + "\" said the apple. " + t;
+            end = true;
+            endMessage = "";
+        }</script>
+
+</body>
+</html>

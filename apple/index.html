@@ -41,6 +41,7 @@
         var eatMessage = "";
         var endMessage = "<br>\"";
         var end = false;
+        var c = 0;
 
         updateContent();
 
@@ -114,10 +115,8 @@
                 }
             }
             // general commands
-            if (command == "hello" || command == "hi") {
-                appleSay("Don't '" + command + "' me!!");
-            } else if (command.includes("eat") && (command.includes("wont") || command.includes("dont") || command.includes("not"))) {
-                if (path === 0) {
+            if (command.includes("eat") && (command.includes("wont") || command.includes("dont") || command.includes("not"))) {
+                if (path === 0 || c < 5) {
                     appleSay("Thank you... for not eating me... not sure why you would in the first place, we've hardly talked!");
                 } else if (path == 1) {
                     eatSay("Oh, goodness, thank you... thank you so-", "But he was cut off, as authorities burst through the door and arrested you both. The apple was charged with first-degree murder, and you were found guilty as an accomplice. <br>The End.");
@@ -125,16 +124,20 @@
                     eatSay("Thank you! I knew I could trust you,", "But the apple was wrong. As an employee of Harthridge Hills Mental Asylum, it was your duty to bring the escaped patient back alive and well, so the public need not worry about someone on the loose who killed their own mother. <br>The End.");
                 } else if (path == 3) {
                     eatSay("Oh good... but what will it matter! A human can't love an apple...", "But your beloved partner can't continue, as the witch reappears before you! \"Weeheehee!!!\" she giggles. \"Interspecies love, I will not condone! Time for you to join in on the fun!\" And with that, you are turned into an apple as well! <br>The End.");
+                } else if (path == 4) {
+                    eatSay("Good... not sure what good eating me would do!", "The apple would feel further pressure under the crippling weight of its massive talent and fame, taking up a lifestyle of endless drinking and drugs. It dies from an overdose at 32. <br>The End.")
                 }
             } else if (command.includes("eat")) {
-                if (path === 0) {
+                if (path === 0 || c < 5) {
                     appleSay("Uh, nuh uh. I don't think so.");
                 } else if (path == 1) {
                     eatSay("AAHHHHHH!!!", "You lick your lips, and smile, knowing now that with the murderer dead, he won't fess up to the authorities about your involvement! <br>The End.");
                 } else if (path == 2) {
                     eatSay("AAHHHHHH!!!", "You felt like it was the right thing to do. A net positive, on society and on the apple. He is no longer tormented by his own mental anguish, and the world is no longer tormented by the existence of someone who killed their own mother. <br>The End.");
                 } else if (path == 3) {
-                    eatSay("AAHHHHHH!!!", "The wife did always have good taste. <br>The End.")
+                    eatSay("AAHHHHHH!!!", "The wife did always have good taste. <br>The End.");
+                } else if (path == 4) {
+                    eatSay("AAHHHHHH!!!", "You replace the apple as lead singer of the band. The immense fame proves to be too much for you to handle, and you become a recluse, locking yourself out from any social contact. You die alone. <br>The End.")
                 }
             }
             // path 1 commands
@@ -213,7 +216,7 @@
                     commandPath = 2;
                     score[1] = true;
                     appleSay("The mental hospital... the prison! Keep me away from there, I must never go back.");
-                } else if ((command.includes("why") || command.includes("what")) && command.includes("hospital")) {
+                } else if ((command.includes("why") || command.includes("what")) && (command.includes("hospital") || command.includes("there"))) {
                     commandPath = 2;
                     score[2] = true;
                     appleSay("My father put me there! What did I do? Ask him!");
@@ -229,31 +232,58 @@
             }
             // path 3 commands
             if (path === 0 || path === 3) {
-                if ((command.includes("what") && command.includes("happen")) || command.includes("did what") || command.includes("what did she") || command.includes("what did the")) {
+                if ((command.includes("what") && command.includes("happen")) || command.includes("did what") || command.includes("what did she") || command.includes("what did the") || command.includes("going on")) {
                     commandPath = 3;
                     score[0] = true;
                     appleSay("Can't you see? I've been turned into an apple!");
-                } else if (command.includes("who") && command.includes("are")) {
+                } else if (command.includes("who") && command.includes("are") && (!command.includes("kids") && !command.includes("children"))) {
                     commandPath = 3;
                     score[1] = true;
-                    appleSay("What are you talking about?? I'm your wife... Did the she mess with your mind too?");
-                } else if (command.includes("witch")) {
+                    appleSay("What are you talking about?? I'm your wife... Did she mess with your mind too?");
+                } else if (command.includes("witch") && !command.includes("where")) {
                     commandPath = 3;
                     score[2] = true;
                     appleSay("I don't know who the witch is. Some old hag! Hopped out from the bushes, did this to me, and flew away on her broomstick!");
                 } else if (command.includes("where")) {
                     commandPath = 3;
                     score[3] = true;
-                    appleSay("Who knows?? Oh, and what about our children!!? What will they think?");
-                } else if ((command.includes("who") && (command.includes("turned") || command.includes("did this"))) || command.includes("did who")) {
+                    appleSay("Who knows?? Oh, and what about our kids!!? What will they think?");
+                } else if (((command.includes("who") || command.includes("how")) && (command.includes("turned") || command.includes("did this"))) || command.includes("did who")) {
                     commandPath = 3;
                     score[4] = true;
-                    appleSay("That old witch!!");
+                    appleSay("That old witch did it!!");
+                } else if (command.includes("kids") || command.includes("children")) {
+                    commandPath = 3;
+                    score[5] = true;
+                    score[6] = true;
+                    appleSay("Bob and Judy... our beautiful children...");
                 }
             }
             // path 4 commands
-            if (path === 0 || path === 2) {
-
+            if (path === 0 || path === 4) {
+                if (command.includes("hello") || command == "hi" || command == "hey" || command.includes("whats up")) {
+                    commandPath = 4;
+                    appleSay("Don't '" + command + "' me!! I'm very stressed right now.");
+                    score[0] = true;
+                } else if (command.includes("stress")) {
+                    commandPath = 4;
+                    appleSay("I'm stressed because of the mob of paparazzi I just had to escape!");
+                    score[1] = true;
+                } else if (command.includes("famous")) {
+                    commandPath = 4;
+                    appleSay("Jeez, shouldn't you know this? I oughta fire you! I'm famouse because I'm in the best fuckin' band in the world, man!");
+                    score[2] = true;
+                } else if (command.includes("band") || command.includes("you called")) {
+                    commandPath = 4;
+                    if (command.includes("who")) {
+                        appleSay("Bob's on drums, Judy on guitar. And I'm the lead singer, of course.");
+                        score[3] = true;
+                    } else if (command.includes("name") || command.includes("called")) {
+                        appleSay("We're called \"Wide Load\", and we fucking rock, dude.");
+                        score[4] = true;
+                    }
+                    
+                }
             }
             // path 5 commands
             if (path === 0 || path === 2) {
@@ -265,7 +295,7 @@
             }
 
 
-            var c = 0;
+            c = 0;
             for (i in score) {
                 if (score[i] == true) {
                     c += 1;

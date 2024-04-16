@@ -19,10 +19,14 @@
         div {
             overflow-wrap: break-word;
         }
+        h1 {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div>
+        <h1>"Don't Eat the Apple" by Lucas Hourahine</h1>
         <p id="content"><span id="cursor">|</span></p>
     </div>
     <script>var cursor = true;
@@ -117,7 +121,21 @@
             // general commands
             if (command.includes("eat") && (command.includes("wont") || command.includes("dont") || command.includes("not"))) {
                 if (path === 0 || c < 5) {
-                    appleSay("Thank you... for not eating me... not sure why you would in the first place, we've hardly talked!");
+                    var n = Math.floor(Math.random() * 4);
+                    switch (n) {
+                        case 0:
+                            appleSay("Thank you... for not eating me... not sure why you would in the first place, we've hardly talked!");
+                            break;
+                        case 1:
+                            appleSay("Shh, we're not at that part yet!");
+                            break;
+                        case 2:
+                            appleSay("I will also not eat you! Glad we're in agreement");
+                            break;
+                        case 3:
+                            appleSay("You're supposed to wait for my cue, dumbass");
+                            break;
+                    }
                 } else if (path == 1) {
                     eatSay("Oh, goodness, thank you... thank you so-", "But he was cut off, as authorities burst through the door and arrested you both. The apple was charged with first-degree murder, and you were found guilty as an accomplice. <br>The End.");
                 } else if (path == 2) {
@@ -125,11 +143,25 @@
                 } else if (path == 3) {
                     eatSay("Oh good... but what will it matter! A human can't love an apple...", "But your beloved partner can't continue, as the witch reappears before you! \"Weeheehee!!!\" she giggles. \"Interspecies love, I will not condone! Time for you to join in on the fun!\" And with that, you are turned into an apple as well! <br>The End.");
                 } else if (path == 4) {
-                    eatSay("Good... not sure what good eating me would do!", "The apple would feel further pressure under the crippling weight of its massive talent and fame, taking up a lifestyle of endless drinking and drugs. It dies from an overdose at 32. <br>The End.")
+                    eatSay("Good... not sure what good eating me would do!", "The apple would feel further pressure under the crippling weight of its massive talent and fame, taking up a lifestyle of endless drinking and drugs. As the manager of the band, keeping your job means making sure the apple keeps theirs. It dies from an overdose at 32. <br>The End.")
                 }
             } else if (command.includes("eat")) {
                 if (path === 0 || c < 5) {
-                    appleSay("Uh, nuh uh. I don't think so.");
+                    var n = Math.floor(Math.random() * 4);
+                    switch (n) {
+                        case 0:
+                            appleSay("Uh, nuh uh. I don't think so");
+                            break;
+                        case 1:
+                            appleSay("Not yet! That part comes later");
+                            break;
+                        case 2:
+                            appleSay("You're supposed to wait for my cue, dumbass");
+                            break;
+                        case 3:
+                            appleSay("I'm gonna eat you first, if you keep jumping the gun!");
+                            break;
+                    }
                 } else if (path == 1) {
                     eatSay("AAHHHHHH!!!", "You lick your lips, and smile, knowing now that with the murderer dead, he won't fess up to the authorities about your involvement! <br>The End.");
                 } else if (path == 2) {
@@ -137,11 +169,15 @@
                 } else if (path == 3) {
                     eatSay("AAHHHHHH!!!", "The wife did always have good taste. <br>The End.");
                 } else if (path == 4) {
-                    eatSay("AAHHHHHH!!!", "You replace the apple as lead singer of the band. The immense fame proves to be too much for you to handle, and you become a recluse, locking yourself out from any social contact. You die alone. <br>The End.")
+                    eatSay("AAHHHHHH!!!", "As the manager of the band, you appoint yourself as the replacement for the apple as lead singer. The immense fame proves to be too much for you to handle, and you become a recluse, locking yourself out from any social contact. You die alone. <br>The End.")
                 }
             }
             // path 1 commands
-            if (path == 1) {
+            if (path === 0) {
+                if (command.includes("bob") || command.includes("judy")) {
+                    appleSay("You're not supposed to know about them yet!");
+                }
+            } else if (path == 1) {
                 if (command.includes("bob")) {
                     appleSay("Bob... I swear, I swear on my life I didn't know it was him! He was my friend...");
                     score[5] = true;

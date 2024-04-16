@@ -19,6 +19,10 @@
         div {
             overflow-wrap: break-word;
         }
+
+        b {
+            color:green;
+        }
     </style>
 </head>
 <body>
@@ -120,7 +124,7 @@
                 unlocked[2] = true;
             } else if (command == "gate") {
                 message =
-                    "C O  R  R  U  P  T I O  N  H  O  M  E S  T E A D A U  R  O  R  A G A T E<br>2 14 18 18 20 17   8 14 16 10 14 13   19       5   20 18 14 18<br>Enter GATE password: ";
+                    "C O  R  R  U  P  T I O  N  H  O  M  E S  T E A D A U  R  O  R  A G A T E<br>2 14 18 18 20 17   8 14 16 10 14 13   19       5   20 18 14 18<br>Enter password for <b>GATE</b>: ";
                 nl = "";
                 unlocked[3] = true;
             } else if (command.replace(/\s+/g, '') == "71223") {

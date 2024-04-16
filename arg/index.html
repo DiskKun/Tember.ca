@@ -26,6 +26,8 @@ body {
 			var writing = false;
 			var message = "";
 
+			var unlocked = [false, false, false, false];
+
 			updateContent();
 
 			setInterval(() => {
@@ -79,7 +81,39 @@ body {
 			function runCommand() {
 				command = command.toLowerCase();
 				if (command == "help") {
-					message = "Commands:\n______ (Access denied)\n______ (Access denied)\n______ (Access denied)\n______ (Access denied)";
+					if (unlocked[0]) {
+						message += "corruption: [description goes here]\r";
+					} else {
+						message += "[ACCESS DENIED]: [description goes here]\r";
+					}
+					if (unlocked[1]) {
+						message += "homestead: [description goes here]\r";
+                    } else {
+                        message += "[ACCESS DENIED]: [description goes here]\r";
+                    }
+					if (unlocked[2]) {
+						message += "aurora: [description goes here]\r";
+                    } else {
+                        message += "[ACCESS DENIED]: [description goes here]\r";
+                    }
+					if (unlocked[3]) {
+						message += "gate: [description goes here]\r";
+                    } else {
+                        message += "[ACCESS DENIED]: [description goes here]\r";
+                    }
+				} else if (command == "corruption") {
+					message = "[link to next puzzle]";
+					unlocked[0] = true;
+				} else if (command == "homestead") {
+					message = "[link to next puzzle]";
+					window.location.href = "./Test_001.html";
+					unlocked[1] = true;
+				} else if (command == "aurora") {
+                    message = "[link to next puzzle]";
+					unlocked[2] = true;
+				} else if (command == "gate") {
+                    message = "[link to next puzzle]";
+					unlocked[3] = true;
 				} else {
 					message = "Unrecognized command. Type \"help\" for a list of commands.";
 				}

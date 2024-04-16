@@ -173,14 +173,6 @@
                     appleSay("Jude... Hey, her songs are good, but she keeps pushing! She can have the B-sides. Those are hers.");
                     score[6] = true;
                 }
-            } else if (path == 5) {
-                if (command.includes("bob")) {
-                    appleSay("Bob? Who's that?");
-                    score[5] = true;
-                } else if (command.includes("judy")) {
-                    appleSay("Judy? I don't know that name.");
-                    score[6] = true;
-                }
             }
             if (path === 0 || path === 1) {
                 if (command.includes("what did you") || command.includes("what have you") || command.includes("whatd you")) {
@@ -208,7 +200,7 @@
 
             // path 2 commands
             if (path === 0 || path === 2) {
-                if (command.includes("running")) {
+                if (command.includes("run") || command.includes("stop")) {
                     commandPath = 2;
                     score[0] = true;
                     appleSay("I'm running from the evil people! From the building I was in!");
@@ -219,7 +211,7 @@
                 } else if ((command.includes("why") || command.includes("what")) && (command.includes("hospital") || command.includes("there"))) {
                     commandPath = 2;
                     score[2] = true;
-                    appleSay("My father put me there! What did I do? Ask him!");
+                    appleSay("My mother's husband put me there! What did I do? Ask him!");
                 } else if (command.includes("father") || command.includes("dad")) {
                     commandPath = 2;
                     score[3] = true;
@@ -265,11 +257,11 @@
                     commandPath = 4;
                     appleSay("Don't '" + command + "' me!! I'm very stressed right now.");
                     score[0] = true;
-                } else if (command.includes("stress")) {
+                } else if (command.includes("stress") || command == "why") {
                     commandPath = 4;
                     appleSay("I'm stressed because of the mob of paparazzi I just had to escape!");
                     score[1] = true;
-                } else if (command.includes("famous")) {
+                } else if (command.includes("famous") || command.includes("paparazzi")) {
                     commandPath = 4;
                     appleSay("Jeez, shouldn't you know this? I oughta fire you! I'm famouse because I'm in the best fuckin' band in the world, man!");
                     score[2] = true;
@@ -278,7 +270,7 @@
                     if (command.includes("who")) {
                         appleSay("Bob's on drums, Judy on guitar. And I'm the lead singer, of course.");
                         score[3] = true;
-                    } else if (command.includes("name") || command.includes("called")) {
+                    } else if (command.includes("name") || command.includes("called") || command.includes("what")) {
                         appleSay("We're called \"Wide Load\", and we fucking rock, dude.");
                         score[4] = true;
                     }
@@ -287,7 +279,28 @@
             }
 
             if (message == "") {
-                appleSay("Huh?");
+                var n = Math.floor(Math.random() * 6);
+                switch (n) {
+                    case 0:
+                        appleSay("Huh?");
+                        break;
+                    case 1:
+                        appleSay("I don't understand...");
+                        break;
+                    case 2:
+                        appleSay("What do you mean?");
+                        break;
+                    case 3:
+                        appleSay("What are you on about?");
+                        break;
+                    case 4:
+                        appleSay("I'm not sure,");
+                        break;
+                    case 5:
+                        appleSay("I don't know,");
+                        break;
+                }
+                
             }
 
 

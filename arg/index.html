@@ -38,7 +38,7 @@
         var nl = "<br>> ";
         var deactivating = false;
 
-        var unlocked = [false, false, false, false];
+        var unlocked = [false, false, false, false, false];
 
         updateContent();
 
@@ -80,7 +80,7 @@
                         command = "";
                     }
                 } else if (event.key == "Backspace") {
-                    if (chars.join('').slice(-3) != "<br>> ") {
+                    if (chars.join('').slice(-2) != "> ") {
 
                         command = command.substring(0, command.length - 1);
                         chars.pop();
@@ -104,14 +104,19 @@
                     message += "[ACCESS DENIED]: Access to NexusCorp image archive.<br>";
                 }
                 if (unlocked[2]) {
-                    message += "aurora: Access to employee of the month page for NexusCorp.<br>";
+                    message += "aurora: Access to Nexus surveillance footage.<br>";
                 } else {
-                    message += "[ACCESS DENIED]: Access to employee of the month page for NexusCorp.<br>";
+                    message += "[ACCESS DENIED]: Access to Nexus surveillance footage.<br>";
                 }
                 if (unlocked[3]) {
-                    message += "gate: Root access to Quantum Nexus operations<br>";
+                    message += "rotate: Access to NexusCorp Employee of the Month page.<br>";
                 } else {
-                    message += "[ACCESS DENIED]: Deactivate the Quantum Nexus.<br>";
+                    message += "[ACCESS DENIED]: Access to NexusCorp Employee of the Month page.<br>";
+                }
+                if (unlocked[4]) {
+                    message += "gate: Root access to Quantum Nexus operations.<br>";
+                } else {
+                    message += "[ACCESS DENIED]: Root access to Quantum Nexus operations.<br>";
                 }
             } else if (command == "corruption") {
                 window.open("https://violetyli05.wixsite.com/haltecharchives", '_blank').focus();
@@ -120,13 +125,16 @@
                 window.open("./Test_001.html", '_blank').focus();
                 unlocked[1] = true;
             } else if (command == "aurora") {
-                window.open("https://employeesofthemonth.w3spaces.com/index.html", '_blank').focus();
+                window.open("https://www.youtube.com/watch?v=1K_uodTevB0", '_blank').focus();
                 unlocked[2] = true;
+            } else if (command.includes('rotat')) {
+                window.open("https://employeesofthemonth.w3spaces.com/index.html", '_blank').focus();
+                unlocked[3] = true;
             } else if (command == "gate") {
                 message =
                     "C O  R  R  U  P  T I O  N  H  O  M  E S  T E A D A U  R  O  R  A G A T E<br>2 14 18 18 20 17   8 14 16 10 14 13   19       5   20 18 14 18<br>Enter password for <b>GATE</b>: ";
                 nl = "";
-                unlocked[3] = true;
+                unlocked[4] = true;
             } else if (command.replace(/\s+/g, '') == "71223") {
                 deactivating = true;
                 message = "YOU ARE ABOUT TO PERMANENTLY DEACTIVATE THE QUANTUM NEXUS. ARE YOU SURE YOU WANT TO CONTINUE? ([Y]es/[N]o)";

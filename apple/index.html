@@ -301,16 +301,20 @@
                     commandPath = 4;
                     appleSay("Jeez, shouldn't you know this? I oughta fire you! I'm famouse because I'm in the best fuckin' band in the world, man!");
                     score[2] = true;
-                } else if (command.includes("band") || command.includes("you called")) {
+                } else if ((command.includes("band") || command.includes("you called")) && !command.includes("quit")) {
                     commandPath = 4;
+                    score[3] = true;
                     if (command.includes("who")) {
                         appleSay("Bob's on drums, Judy on guitar. And I'm the lead singer, of course.");
-                        score[3] = true;
                     } else if (command.includes("name") || command.includes("called") || command.includes("what")) {
                         appleSay("We're called \"Wide Load\", and we fucking rock, dude.");
-                        score[4] = true;
+
                     }
-                    
+
+                } else if (command.includes("quit")) {
+                    score[4] = true;
+                    commandPath = 4;
+                    appleSay("I can't quit, my bandmates need me!!");
                 }
             }
 

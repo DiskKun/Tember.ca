@@ -82,19 +82,19 @@ body {
 				command = command.toLowerCase();
 				if (command == "help") {
 					if (unlocked[0]) {
-						message += "corruption: [description goes here]\r";
+						message += "corruption: View your NexusCorp email.\r";
 					} else {
-						message += "[ACCESS DENIED]: [description goes here]\r";
+                        message += "[ACCESS DENIED]: View your NexusCorp email.\r";
 					}
 					if (unlocked[1]) {
-						message += "homestead: [description goes here]\r";
+						message += "homestead: Access to NexusCorp image archive.\r";
                     } else {
-                        message += "[ACCESS DENIED]: [description goes here]\r";
+                        message += "[ACCESS DENIED]: Access to NexusCorp image archive.\r";
                     }
 					if (unlocked[2]) {
-						message += "aurora: [description goes here]\r";
+						message += "aurora: Access to employee of the month page for NexusCorp.\r";
                     } else {
-                        message += "[ACCESS DENIED]: [description goes here]\r";
+                        message += "[ACCESS DENIED]: Access to employee of the month page for NexusCorp.\r";
                     }
 					if (unlocked[3]) {
 						message += "gate: [description goes here]\r";
@@ -102,14 +102,12 @@ body {
                         message += "[ACCESS DENIED]: [description goes here]\r";
                     }
 				} else if (command == "corruption") {
-					message = "[link to next puzzle]";
+					window.open("./Nexus_Corporation_-_Chapter_1.html", '_blank').focus();
 					unlocked[0] = true;
 				} else if (command == "homestead") {
-					message = "[link to next puzzle]";
-					window.location.href = "./Test_001.html";
+                    window.open("./Test_001.html", '_blank').focus();
 					unlocked[1] = true;
 				} else if (command == "aurora") {
-					message = "[link to next puzzle]";
                     window.open("https://employeesofthemonth.w3spaces.com/index.html", '_blank').focus();
 					unlocked[2] = true;
 				} else if (command == "gate") {

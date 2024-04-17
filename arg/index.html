@@ -62,6 +62,9 @@
                 document.getElementById('cursor').style.opacity = 0;
                 if (message.length === 0) {
                     writing = false;
+                    if (deactivating == "end") {
+                        window.open("https://violetyli05.wixsite.com/epilogue", '_blank').focus();
+                    }
                 }
             }
         }, 25);
@@ -142,6 +145,7 @@
             } else if (deactivating) {
                 if ((command == "yes" || command == "y")) {
                     message = "Quantum Nexus deactivated.";
+                    deactivating = "end";
                 } else {
                     message = "Quantum Nexus deactivation aborted!";
                 }

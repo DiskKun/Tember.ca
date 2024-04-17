@@ -64,6 +64,8 @@
                     writing = false;
                     if (deactivating == "end") {
                         window.open("https://violetyli05.wixsite.com/epilogue", '_blank').focus();
+                    } else if (deactivating == "bad") {
+                        window.open("White_and_Black_Professional_Magazine_Cover_1.png", '_blank').focus();
                     }
                 }
             }
@@ -148,6 +150,7 @@
                     deactivating = "end";
                 } else {
                     message = "Quantum Nexus deactivation aborted!";
+                    deactivating = "bad";
                 }
             } else {
                 message = "Unrecognized command. Type \"help\" for a list of commands.";

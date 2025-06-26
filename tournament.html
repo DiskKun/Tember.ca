@@ -45,6 +45,7 @@
         p {
             margin: 0px;
         }
+
         p.light {
             background-color: rgba(0, 0, 0, 0);
         }
@@ -57,6 +58,7 @@
             color: white;
 
         }
+
         .removePlayer {
             position: absolute;
             font-size: 12pt;
@@ -105,7 +107,7 @@
         <div id="namefields">
 
         </div>
-        <input type="submit" onclick="generateTournament()">
+        <button onclick="generateTournament()">Start Tournament</button>
     </form>
 
     <form id="round" class="invisible">
@@ -313,10 +315,15 @@
 
     function generateNames() {
         var data = new FormData(form);
-        namefields.innerHTML = "";
-        for (i = 1; i <= data.get("number_of_players"); i++) {
-            namefields.innerHTML += "<input type=\"text\" name=\"names\" placeholder=\"Name " + i + "\"><br>";
+        if (data.get("number_of_players") >= 100) {
+            window.alert("Cut it out, Jett");
+        } else {
+            namefields.innerHTML = "";
+            for (i = 1; i <= data.get("number_of_players"); i++) {
+                namefields.innerHTML += "<input type=\"text\" name=\"names\" placeholder=\"Name " + i + "\"><br>";
+            }
         }
+
     }
 </script>
 

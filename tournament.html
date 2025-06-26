@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <style>
+        @font-face {
+            font-family: azoSans;
+            src: url(./fonts/azo-sans.ttf);
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .bottom {
+            /* position:initial;
+                bottom:20; */
+            display: flex;
+            /* margin-top: auto; */
+        }
+
+        body {
+            text-align: center;
+            font-family: azoSans;
+            background-image: url("./img/bg.png");
+
+        }
+
+        /* form {
+                font-size: xx-large;
+                
+            } */
+        input[type=submit],
+        input[type=button],
+        input[type=number],
+        input[type="text"],
+        button,
+        label,
+        p {
+            font-size: xx-large;
+        }
+
+        p {
+            margin: 0px;
+        }
+        p.light {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        p.dark {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            color: white;
+
+        }
+        .removePlayer {
+            position: absolute;
+            font-size: 12pt;
+            margin: 0px;
+            right: 10px;
+        }
+
+        #round,
+        #rankings {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        button,
+        input[type="submit"],
+        input[type="button"] {
+            border: none;
+            background-color: #add8e6;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            transition: all 100ms;
+        }
+
+        button:hover,
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #627981;
+            cursor: pointer;
+        }
+
+        input[type=radio] {
+            border: 0px;
+            width: 30px;
+            height: 2em;
+        }
+    </style>
+</head>
+
+<body onload="startTournament()">
+    <h1>Code Ninjas: The Trading Card Game</h1>
+    <h2>Tournament Tracker</h2>
+    <form id="tournamentInfo">
+        <label>Number of Players in Tournament:</label>
+        <input name="number_of_players" id="number_of_players" type="number"><br>
+        <div id="namefields">
+
+        </div>
+        <input type="submit" onclick="generateTournament()">
+    </form>
+
+    <form id="round" class="invisible">
+        <div id="pairings">
+
+        </div>
+        <input type="button" value="Submit Scores" onclick="tallyScore()">
+    </form>
+
+    <div id="rankings" class="invisible">
+        <button onclick="nextRound()">Next Round</button>
+    </div>
+
+    <div id="options">
+        <button class="bottom" onclick="addPlayer()">Add Player</button>
+        <button class="bottom" onclick="resetScores()">Reset Scores</button>
+        <button class="bottom" onclick="restart()">Reset All</button>
+    </div>
+
+
+</body>
+<script>
+
+    // global variable setup
+    var form = document.getElementById("tournamentInfo");
+    var namefields = document.getElementById("namefields");
+    var roundElement = document.getElementById("round");
+    var pairingsElement = document.getElementById("pairings");
+    var rankElement = document.getElementById("rankings");
+    var names;
+    var currentRound = 1;
+    var scores = [];
+    var isBye = false;
+    // listen for changes in number of players form field
+    document.getElementById("number_of_players").addEventListener("change", function () { generateNames() });
+
+    function restart() {
+        if (window.confirm("Are you sure you want to delete the tournament? All progress will be lost.")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    function addPlayer() {
+        var inp = window.prompt("Name of new player:", "");
+        if (inp === null) {
+            return;
+        } else {
+            scores.push([[inp], [0]])
+        }
+        showRanks();
+        // localStorage.setItem("scores", scores);
+        // location.reload();
+    }
+
+    function removePlayer(name) {
+        if (window.confirm("Are you sure you want to remove " + name + "?")) {
+            scores.forEach(element => {
+                if (element[0] === name) {
+                    scores.splice(scores.indexOf(element), 1);
+                }
+            });
+            //localStorage.setItem("scores", scores);
+            showRanks();
+        }
+
+    }
+
+    function resetScores() {
+        if (window.confirm("Are you sure you want to reset all scores?")) {
+            scores.forEach(element => {
+                element[1] = 0;
+            });
+            localStorage.setItem("scores", scores);
+            localStorage.setItem("currentRound", 1)
+            location.reload();
+        }
+
+    }
+
+    function nextRound() {
+        localStorage.setItem("scores", scores);
+        console.log("scores");
+        currentRound += 1;
+        pairUp();
+
+    }
+
+    function startTournament() {
+        var isHere = localStorage.getItem("dataHere");
+        if (isHere) {
+            form.className = "invisible";
+            roundElement.className = "";
+            currentRound = Number(localStorage.getItem("currentRound"));
+            tempscores = localStorage.getItem("scores");
+            // scores = [];
+            // for (var i = 0; i < scores.length*2; i+=2) {
+            //     scores.push([tempscores[i], tempscores[i+1]]);
+            // }
+            pairUp();
+        }
+    }
+
+    function pairUp() {
+
+        scores = [];
+        var tempscores = localStorage.getItem("scores").split(',');
+
+        for (var i = 0; i < tempscores.length; i += 2) {
+            scores.push([tempscores[i], Number(tempscores[i + 1])]);
+        }
+
+        rankElement.className = "invisible";
+        roundElement.className = "";
+        localStorage.setItem("currentRound", currentRound);
+        console.log(currentRound)
+
+
+        bubbleSort();
+        pairingsElement.innerHTML = "";
+        if ((scores[0][1] >= 2 && scores[1][1] >= 2) && !(scores[0][1] === scores[1][1] && scores[1][1] == scores[2][1] && scores[2][1] == scores[0][1])) {
+            pairingsElement.innerHTML = "<h1>Final round!</h1>";
+        } else {
+            pairingsElement.innerHTML = "<h1>Round " + currentRound + "</h1>";
+        }
+        for (var i = 0; i < scores.length; i += 2) {
+            if (i === scores.length - 1) {
+
+                pairingsElement.innerHTML += "<p>Bye: " + scores[i][0] + ", (" + scores[i][1] + " wins)</p>";
+                isBye = true;
+            } else {
+                pairingsElement.innerHTML += "<input value=\"one\" type=\"radio\" name=\"pair" + i + "\">";
+                pairingsElement.innerHTML += "<label>" + scores[i][0] + " (" + scores[i][1] + " wins) VS. </label>";
+                pairingsElement.innerHTML += "<input value=\"two\" type=\"radio\" \" name=\"pair" + i + "\">";
+                pairingsElement.innerHTML += "<label>" + scores[i + 1][0] + " (" + scores[i + 1][1] + " wins)</label><br>";
+
+            }
+
+        }
+
+    }
+
+    function tallyScore() {
+        var data = new FormData(roundElement);
+        for (var i = 0; i < Math.floor(scores.length / 2) * 2; i += 2) {
+            if (data.get("pair" + i) === "one") {
+                scores[i][1] += 1;
+            } else if (data.get("pair" + i) === "two") {
+                scores[i + 1][1] += 1;
+            }
+        }
+        if (isBye) {
+            scores[scores.length - 1][1] += 1;
+        }
+        bubbleSort();
+        scores.reverse();
+        showRanks();
+
+    }
+
+    function bubbleSort() {
+        for (var i = 0; i < scores.length; i++) {
+            for (var j = i + 1; j < scores.length; j++) {
+                if (scores[i][1] < scores[j][1]) {
+                    var temp = scores[i];
+                    scores[i] = scores[j];
+                    scores[j] = temp;
+                }
+            }
+        }
+    }
+
+    function showRanks() {
+        rankElement.innerHTML = "<button onclick=\"nextRound()\">Next Round</button>";
+        rankElement.className = "";
+        roundElement.className = "invisible";
+
+        var c = "light";
+
+        scores.forEach(e => {
+            rankElement.innerHTML = "<p class=\"" + c + "\">" + e[0] + ": " + e[1] + " win(s)<button class='removePlayer' onclick='removePlayer(\"" + e[0] + "\")'>Remove Player</button></p>" + rankElement.innerHTML;
+            if (c === "light") {
+                c = "dark";
+            } else {
+                c = "light";
+            }
+        });
+        // localStorage.setItem('scores', scores);
+
+
+    }
+
+    function generateTournament() {
+        var data = new FormData(form);
+        names = data.getAll("names");
+        names.forEach(e => {
+            scores.push([e, 0])
+        });
+        localStorage.setItem("scores", scores);
+        localStorage.setItem("dataHere", true);
+        localStorage.setItem("currentRound", 1);
+        console.log(localStorage.getItem("dataHere"))
+
+    }
+
+    function generateNames() {
+        var data = new FormData(form);
+        namefields.innerHTML = "";
+        for (i = 1; i <= data.get("number_of_players"); i++) {
+            namefields.innerHTML += "<input type=\"text\" name=\"names\" placeholder=\"Name " + i + "\"><br>";
+        }
+    }
+</script>
+
+</html>

@@ -102,6 +102,8 @@
     <h1>Code Ninjas: The Trading Card Game</h1>
     <h2>Tournament Tracker</h2>
     <form id="tournamentInfo">
+        <label>Minutes per Round:</label>
+        <input type="number" name="mins" value="50"><br>
         <label>Number of Players in Tournament:</label>
         <input name="number_of_players" id="number_of_players" type="number"><br>
         <div id="namefields">
@@ -111,6 +113,9 @@
     </form>
 
     <form id="round" class="invisible">
+        <div>
+            <h1 id="timer"></h1>
+        </div>
         <div id="pairings">
 
         </div>
@@ -141,9 +146,20 @@
     var currentRound = 1;
     var scores = [];
     var isBye = false;
+    var roundTime = 0;
+    var timePerRound;
+    var timer;
+
     // listen for changes in number of players form field
     document.getElementById("number_of_players").addEventListener("change", function () { generateNames() });
 
+    function displayTimeLeft() {
+        console.log(roundTime);
+        var timeElement = document.getElementById("timer");
+        timeElement.innerHTML = new Date((roundTime + 5*60*60) * 1000).toString().slice(16, 24);
+        roundTime -= 1;
+    }
+    
     function restart() {
         if (window.confirm("Are you sure you want to delete the tournament? All progress will be lost.")) {
             localStorage.clear();
@@ -190,7 +206,6 @@
 
     function nextRound() {
         localStorage.setItem("scores", scores);
-        console.log("scores");
         currentRound += 1;
         pairUp();
 
@@ -223,8 +238,6 @@
         rankElement.className = "invisible";
         roundElement.className = "";
         localStorage.setItem("currentRound", currentRound);
-        console.log(currentRound)
-
 
         bubbleSort();
         pairingsElement.innerHTML = "";
@@ -247,6 +260,12 @@
             }
 
         }
+        roundTime = localStorage.getItem("timePerRound") * 60;
+        if (timer) {
+            clearInterval(timer);
+            console.log("clear");
+        }
+        timer = setInterval(displayTimeLeft, 1000);
 
     }
 
@@ -309,8 +328,7 @@
         localStorage.setItem("scores", scores);
         localStorage.setItem("dataHere", true);
         localStorage.setItem("currentRound", 1);
-        console.log(localStorage.getItem("dataHere"))
-
+        localStorage.setItem("timePerRound", data.get("mins"));
     }
 
     function generateNames() {

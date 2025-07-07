@@ -46,6 +46,8 @@
             margin: 0px;
         }
 
+        
+
         p.light {
             background-color: rgba(0, 0, 0, 0);
         }
@@ -253,9 +255,9 @@
                 isBye = true;
             } else {
                 pairingsElement.innerHTML += "<input value=\"one\" type=\"radio\" name=\"pair" + i + "\">";
-                pairingsElement.innerHTML += "<label>" + scores[i][0] + " (" + scores[i][1] + " wins) VS. </label>";
+                pairingsElement.innerHTML += "<label style=\"-webkit-text-stroke: 1.5px black;color:" + beltColour(scores[i][1]) + "\">" + scores[i][0] + " (" + scores[i][1] + " wins)</label> <label>VS.</label>";
                 pairingsElement.innerHTML += "<input value=\"two\" type=\"radio\" \" name=\"pair" + i + "\">";
-                pairingsElement.innerHTML += "<label>" + scores[i + 1][0] + " (" + scores[i + 1][1] + " wins)</label><br>";
+                pairingsElement.innerHTML += "<label style=\"-webkit-text-stroke: 1.5px black;color:" + beltColour(scores[i + 1][1]) + "\">" + scores[i + 1][0] + " (" + scores[i + 1][1] + " wins)</label><br>";
 
             }
 
@@ -267,6 +269,38 @@
         }
         timer = setInterval(displayTimeLeft, 1000);
 
+    }
+
+    function beltColour(num) {
+        switch (num) {
+            case 0:
+                return "white";
+                break;
+            case 1:
+                return "yellow";
+                break;
+            case 2:
+                return "orange";
+                break;
+            case 3:
+                return "yellowgreen";
+                break;
+            case 4:
+                return "blue";
+                break;
+            case 5:
+                return "mediumpurple";
+                break;
+            case 6:
+                return "saddlebrown";
+                break;
+            case 7:
+                return "red";
+                break;
+            case 8:
+                return "black";
+                break;
+        }
     }
 
     function tallyScore() {
@@ -307,7 +341,7 @@
         var c = "light";
 
         scores.forEach(e => {
-            rankElement.innerHTML = "<p class=\"" + c + "\">" + e[0] + ": " + e[1] + " win(s)<button class='removePlayer' onclick='removePlayer(\"" + e[0] + "\")'>Remove Player</button></p>" + rankElement.innerHTML;
+            rankElement.innerHTML = "<p style=\"color:" + beltColour(e[1]) + "\" class=\"" + c + "\">" + e[0] + ": " + e[1] + " win(s)<button class='removePlayer' onclick='removePlayer(\"" + e[0] + "\")'>Remove Player</button></p>" + rankElement.innerHTML;
             if (c === "light") {
                 c = "dark";
             } else {

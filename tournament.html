@@ -251,7 +251,7 @@
         for (var i = 0; i < scores.length; i += 2) {
             if (i === scores.length - 1) {
 
-                pairingsElement.innerHTML += "<p>Bye: " + scores[i][0] + ", (" + scores[i][1] + " wins)</p>";
+                pairingsElement.innerHTML += "<p style=\"-webkit-text-stroke: 1.5px black;color:" + beltColour(scores[i][1]) + "\">Bye: " + scores[i][0] + ", (" + scores[i][1] + " wins)</p>";
                 isBye = true;
             } else {
                 pairingsElement.innerHTML += "<input value=\"one\" type=\"radio\" name=\"pair" + i + "\">";

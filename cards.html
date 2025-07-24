@@ -5,14 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <style>
         .cardwrapper {
-            display:flex;
-            background-color:black;
+            display: flex;
+            background-color: black;
         }
+
         img {
-            padding:10px;
+            padding: 10px;
         }
+
         body {
-            color:white;
+            color: white;
         }
     </style>
 </head>
@@ -26,6 +28,10 @@
             <p>Type: Background Image</p>
             <p>Text box: "Whenever a player plays a Sensei card, they may delete a card from their hand to draw a card."
             </p>
+            <ul>Notes:
+                <li>If you choose to delete the card from your hand to draw a card, you must do so before the Sensei
+                    card resolves.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -44,6 +50,12 @@
             <p>Cost: 4</p>
             <p>Type: Background Image</p>
             <p>Text box: "If a player controls 3 or more Sprites, they cannot create any more Sprites."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "If a player controls 3 or more Sprites, they cannot play any more
+                    Sprites."</li>
+                <li>Effects that allow a Sprite to be created without a player playing it get around Forest's
+                    restriction.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -64,6 +76,9 @@
             <p>Type: Background Image</p>
             <p>Text box: "Cards removed from the match can be shuffled back into their owner's deck as a Fast Action by
                 paying that card's cost, divided by 2, rounding up."</p>
+            <ul>Notes:
+                <li>Cards attached to Games are in their own zone separate from cards removed from the match.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -82,6 +97,10 @@
             <p>Cost: 3</p>
             <p>Type: Background Image</p>
             <p>Text box: "No more than 1 Sprite can be created each turn."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Players cannot play more than 1 Sprite during each of their turns."</li>
+                <li>Effects that allow a Sprite to be created without a player playing it get around Parachute's restriction.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -100,6 +119,10 @@
             <p>Cost: 3</p>
             <p>Type: Background Image</p>
             <p>Text box: "No more than 1 Sensei can be played each turn."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Players cannot play more than 1 Sensei during each of their turns."</li>
+                <li>Effects that allow a Sprite to be created without a player playing it get around Parachute's restriction.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -201,6 +224,9 @@
             </ul>
             <p class="text">Whenever a Sprite is attached to this game, an opponent of your choice deletes a card from
                 their hand.</p>"<p></p>
+<ul>Notes:
+                <li>The opponent deleting the card from their hand chooses which card to delete.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -216,6 +242,9 @@
             </ul>
             <p class="text">Whenever a Sprite is attached to this game, click a Sprite. It doesn't unclick during its
                 controller's next unclick step.</p>"<p></p>
+                <ul>Notes:
+                <li>If your opponent has no Sprites for you to click, and you do, you must choose one of your own.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -260,6 +289,9 @@
             </ul>
             <p class="text">Whenever a Sprite is attached to this game, you may play a Sprite from your trash (pay its
                 cost).</p>"<p></p>
+            <ul>Notes:
+                <li>If you choose to play a Sprite as per this card's ability, you must do so as the ability is resolving.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -315,7 +347,8 @@
         </div>
     </div>
     <div class="cardwrapper">
-        <div class="cardimg"><img style="position:static;" src="./img/card_images/senseiharpreetcentreswapper.png"></div>
+        <div class="cardimg"><img style="position:static;" src="./img/card_images/senseiharpreetcentreswapper.png">
+        </div>
         <div class="cardinfo">
             <p>Name: Sensei Harpreet, Centre Swapper</p>
             <p>Cost: 2</p>
@@ -336,7 +369,8 @@
         </div>
     </div>
     <div class="cardwrapper">
-        <div class="cardimg"><img style="position:static;" src="./img/card_images/senseijacobmisplacerofdecks.png"></div>
+        <div class="cardimg"><img style="position:static;" src="./img/card_images/senseijacobmisplacerofdecks.png">
+        </div>
         <div class="cardinfo">
             <p>Name: Sensei Jacob, Misplacer of Decks</p>
             <p>Cost: 4</p>
@@ -434,6 +468,10 @@
             <p>Cost: 4</p>
             <p>Type: Sensei</p>
             <p>Text box: "Until the end of your next turn, players can't create Sprites."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Until the end of your next turn, players can't play Sprites."</li>
+                <li>Effects that allow a Sprite to be created without a player playing it get around 10 Minute Break's restriction.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -443,6 +481,10 @@
             <p>Cost: 6</p>
             <p>Type: Sensei</p>
             <p>Text box: "This card becomes a copy of any Sprite you control."</p>
+            <ul>Notes:
+                <li>3D Printer behaves as if it were the card you chose to copy.</li>
+                <li>If 3D Printer leaves play, it becomes 3D Printer again.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -481,6 +523,9 @@
             <p>Cost: 3</p>
             <p>Type: Sensei</p>
             <p>Text box: "Write lines of code equal to the number of cards in your hand."</p>
+            <ul>Notes:
+                <li>You write lines equal to the number of cards in your hand as An Elephant Solution resolves.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -492,6 +537,10 @@
             <p>Subtype: Popsicle</p>
             <p>Text box: "Look at any player's hand. Remove a card from it from the match. You may play that card any
                 time you could as if it were in your hand."</p>
+            <ul>Notes:
+                <li>You must pay all costs associated with that card to play it.</li>
+                <li>You may only play it any time you could normally play that card.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -510,6 +559,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all BOINKGAME Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all BOINKGAME Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -519,6 +571,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all Bug Invaders Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Bug Invaders Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -528,6 +583,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all Cactus Jump Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Cactus Jump Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -537,6 +595,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all Carrot Chase Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Carrot Chase Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -545,8 +606,10 @@
             <p>Name: Ate all the Fish</p>
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
-            <p>Text box: "Put all Animated Aquarium Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."
-            </p>
+            <p>Text box: "Put all Animated Aquarium Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+                <ul>Notes:
+                <li>Actual card rules text reads "Put all Animated Aquarium Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -557,6 +620,9 @@
             <p>Type: Sensei</p>
             <p>Text box: "Put all Key to the Castle Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."
             </p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Key to the Castle Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -567,6 +633,9 @@
             <p>Type: Sensei</p>
             <p>Text box: "Put all Wizard's Mystic Toadstool Sprites on the bottom of their owner's deck. Gain 2 Ninja
                 Bucks."</p>
+                <ul>Notes:
+                <li>Actual card rules text reads "Put all Wizard's Mystic Toadstools Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -576,6 +645,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all Rain Catcher Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Rain Catcher Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -585,6 +657,9 @@
             <p>Cost: 1</p>
             <p>Type: Sensei</p>
             <p>Text box: "Put all Avoid the Snakes Sprites on the bottom of their owner's deck. Gain 2 Ninja Bucks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Put all Avoid the Snakes Sprites on the bottom of their owner's deck in a random order. Gain 2 Ninja Bucks."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -595,6 +670,9 @@
             <p>Type: Sensei</p>
             <p>Text box: "Set your hand aside. Draw the same number of cards. At end of turn, discard your hand and
                 return your old hand to your hand."</p>
+                <ul>Notes:
+                <li>Actual card rules text reads "Remove your hand from the match. Draw the same number of cards. At end of turn, discard your hand and return all cards removed from the match by Backpack to your hand."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -624,6 +702,10 @@
             <p>Type: Sensei</p>
             <p>Text box: "Each player reveals cards from the top of their deck until they reveal a Sprite card. They
                 play the Sprite for free. Return the rest to the bottom of the deck in a random order."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Each player reveals cards from the top of their deck until they reveal a Sprite card. The revealed Sprites are created. Return the rest to the bottom of the deck in a random order."</li>
+                <li>Neither player pays the cost of the Sprite, nor is the Sprite considered "played" by either player.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -643,6 +725,9 @@
             <p>Cost: 6</p>
             <p>Type: Sensei</p>
             <p>Text box: "Gain control of an opponent's Sprite until end of turn. Unclick it. It loads instantly."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Gain control of an opponent's Sprite until end of turn. Unclick it. It loads instantly. You cannot attach it this turn."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -680,6 +765,9 @@
             <p>Cost: 3</p>
             <p>Type: Sensei</p>
             <p>Text box: "Look at the top 5 cards of your deck. Put two on top and the rest on the bottom."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Look at the top 5 cards of your deck. Put two on top and the rest on the bottom in any order."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -699,6 +787,10 @@
             <p>Cost: 6</p>
             <p>Type: Sensei</p>
             <p>Text box: "A Sprite you control becomes a copy of any Sprite in play."</p>
+            <ul>Notes:
+                <li>The card you choose to become a copy behaves as if it were the card you chose to copy.</li>
+                <li>If the copy leaves play, it becomes the original card again.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -730,6 +822,9 @@
             <p>Type: Sensei</p>
             <p>Text box: "Return a Sprite in play to its owner's hand if you have equal or less Ninja Bucks than its
                 owner."</p>
+            <ul>Notes:
+                <li>Compare your Ninja Bucks when the Sensei card resolves (meaning after you pay its cost).</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -761,6 +856,9 @@
             <p>Type: Sensei</p>
             <p>Subtype: Fast Action</p>
             <p>Text box: "Delete a Sprite you control. Draw two cards."</p>
+            <ul>Notes:
+                <li>You do not need to have a Sprite in play in order to play Dojo Snowball Fight.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1033,6 +1131,10 @@
             <p>Type: Sensei</p>
             <p>Text box: "Choose a Sprite an opponent controls. Pay its cost in Ninja Bucks. Swap it with a Sprite you
                 control."</p>
+            <ul>Notes:
+                <li>Each player controls their new Sprite indefinitely.</li>
+                <li>When a Sprite is trashed, returned to the hand, or returned to the deck, it always returns to its owner's trash, hand or deck, respectively.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1061,6 +1163,9 @@
             <p>Cost: 10</p>
             <p>Type: Sensei</p>
             <p>Text box: "Name a Game. Put all Sprites in play from that Game on the bottom of their owner's decks."</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Name a Game. Put all Sprites in play from that Game on the bottom of their owner's decks in a random order."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1080,6 +1185,9 @@
             <p>Type: Sensei</p>
             <p>Text box: "Draw a card, then delete a card from your hand. You can delete a card from your hand during
                 your turn to return this card from your trash to your hand."</p>
+            <ul>Notes:
+                <li>You can activate Water Generator's ability any time you could take a normal action.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1091,6 +1199,9 @@
             <p>Text box: "All players pick a non-Game card in their hand and put them face-down. Reveal them. The player
                 who revealed the card with the highest cost draws three cards. The other player(s) delete the card they
                 revealed."</p>
+            <ul>Notes:
+                <li>If the result is a tie, the players who tied each draw three cards.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1109,6 +1220,9 @@
             <p>Cost: 4</p>
             <p>Type: Sensei</p>
             <p>Text box: "Each player may play a Sensei without paying its cost."</p>
+            <ul>Notes:
+                <li>If a player chooses to play a Sensei as per Wrath of Sensei's ability, they must do so as Wrath of Sensei resolves.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1118,6 +1232,9 @@
             <p>Cost: 4</p>
             <p>Type: Sensei</p>
             <p>Text box: "Each player may create a Sprite without paying its cost."</p>
+            <ul>Notes:
+                <li>If a player chooses to play a Sprite as per Wrath of Sprite's ability, they must do so as Wrath of Sprite resolves.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1153,6 +1270,9 @@
             <p>Text box: "Click: Search your deck for a Puppy Sprite and create it for free."</p>
             <p>Ninja Bucks: 2</p>
             <p>Lines of Code: 0</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "Click: Search your deck for a Puppy Sprite and play it for free."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1219,6 +1339,9 @@
             <p>Text box: "When you create this Sprite, delete another Sprite."</p>
             <p>Ninja Bucks: 1</p>
             <p>Lines of Code: 1</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "When this Sprite is created, delete another Sprite."</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1314,6 +1437,9 @@
             <p>Text box: "For as long as Bunny is unclicked, your Sprites write +1 line of code."</p>
             <p>Ninja Bucks: 0</p>
             <p>Lines of Code: 1</p>
+            <ul>Notes:
+                <li>If you click Bunny for lines of code, its passive ability deactivates before the lines of code ability resolves, meaning it will only write one line.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1341,6 +1467,9 @@
                 load."</p>
             <p>Ninja Bucks: 1</p>
             <p>Lines of Code: 1</p>
+            <ul>Notes:
+                <li>This only affects Sprites created while Cactus' ability is active.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1421,6 +1550,10 @@
             <p>Text box: "When you create Cloud, create any number of Raindrop Sprites for free."</p>
             <p>Ninja Bucks: 1</p>
             <p>Lines of Code: 0</p>
+            <ul>Notes:
+                <li>Actual card rules text reads "When Cloud is created, play any number of Raindrop Sprites for free."</li>
+                <li>The Raindrops must be in your hand in order for you to play them.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">
@@ -1434,6 +1567,9 @@
             <p>Text box: "Whenever you attach a Sprite, draw a card for each attached Sprite you have."</p>
             <p>Ninja Bucks: 1</p>
             <p>Lines of Code: 1</p>
+            <ul>Notes:
+                <li>Since the ability activates after the Sprite is already attached, it counts the Sprite you just attached.</li>
+            </ul>
         </div>
     </div>
     <div class="cardwrapper">

@@ -23,10 +23,6 @@
         <div id="unity-build-title">unity networking</div>
       </div>
     </div>
-
-    <p>Session Name: Any username</p>
-    <p>Session ID: "room1"</p>
-
     <script>
       var canvas = document.querySelector("#unity-canvas");
 
@@ -59,9 +55,9 @@
       var loaderUrl = buildUrl + "/CoinBattle.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/CoinBattle.data.gz",
-        frameworkUrl: buildUrl + "/CoinBattle.framework.js.gz",
-        codeUrl: buildUrl + "/CoinBattle.wasm.gz",
+        dataUrl: buildUrl + "/CoinBattle.data.unityweb",
+        frameworkUrl: buildUrl + "/CoinBattle.framework.js.unityweb",
+        codeUrl: buildUrl + "/CoinBattle.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "unity networking",

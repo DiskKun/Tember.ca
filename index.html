@@ -35,12 +35,16 @@
 
 
 		.portfolioItem {
-			width: 30%;
+			width: 90%;
+			height: 90%;
 			border: 1px solid white;
 			display: inline-block;
 			text-align: center;
 			padding-top: 20px;
 			padding-bottom: 20px;
+			margin: auto;
+			/* margin-top:10px;
+			margin-bottom:10px; */
 		}
 
 		img {
@@ -49,7 +53,12 @@
 
 		#portfolioContent {
 			display: none;
-			/* background-color: grey; */
+			/* display: grid; */
+			grid-template-columns: auto auto auto;
+			text-align: center;
+		}
+
+		h2 {
 			text-align: center;
 		}
 	</style>
@@ -58,21 +67,41 @@
 <body>
 	<div>
 		<h1>Lucas Hourahine's Portfolio</h1>
+		<h2><a href="#" onclick="AutoTypeCommand('skip');this.style.display = 'none'">(skip)</a></h2>
 		<div id="portfolioContent" class="animate__animated animate__backInDown">
 			<div class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p><b>Portfolio Item #1</b></p>
 				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
 					item description.</p>
 			</div>
 			<div class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
-				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
-					item description.</p>
+				<p><b>Portfolio Item #2</b></p>
+				<p class="previewText">This is some more placeholder text</p>
 			</div>
 			<div class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p><b>Portfolio Item #3</b></p>
+				<p class="previewText">This is NOT placeholder text... just kidding, it is.</p>
+			</div>
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p><b>Portfolio Item #4</b></p>
+				<p class="previewText">I'm giving each of these placeholders a different length description to make sure
+					everything gets aligned evenly.</p>
+			</div>
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p><b>Portfolio Item #5</b></p>
+				<p class="previewText">Giggity.</p>
+			</div>
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p><b>Portfolio Item #6</b></p>
 				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
-					item description.</p>
+					item description. Except it's super duper long and might fall out of its div if I'm not careful!!
+					Nah we're good.</p>
 			</div>
 		</div>
 		<div id="consoleTextOutput"></div>
@@ -228,6 +257,9 @@
 				}
 			} else if (c === "h" || c.includes("help")) {
 				PrintTextToConsole("Type 'look' to look around, or a direction (north, south, east, west) to move in that direction.", consolePrintSpeed);
+			} else if (c === "skip") {
+				window.scrollTo(0, 0);
+				ShowPortfolio();
 			} else {
 				PrintTextToConsole("What?", consolePrintSpeed);
 			}
@@ -250,7 +282,7 @@
 		}
 
 		function ShowPortfolio() {
-			portfolioContent.style.display = "block";
+			portfolioContent.style.display = "grid";
 		}
 	</script>
 

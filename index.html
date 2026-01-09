@@ -29,6 +29,10 @@
 			white-space: pre-wrap;
 		}
 
+		a {
+			color: lightblue;
+		}
+
 
 
 		.portfolioItem {
@@ -120,6 +124,11 @@
 
 		}, cursorBlinkSpeed);
 
+		addEventListener("click", (event) => { 
+			SubmitCommand();
+		})
+
+
 		// keydown routine
 		document.addEventListener('keydown', function (event) {
 
@@ -148,6 +157,12 @@
 					currentParagraph.innerHTML += textToPrint[0];
 					textToPrint = textToPrint.substring(1, textToPrint.length);
 					if (textToPrint.length === 0) {
+						if (currentParagraph.innerHTML.includes("north") && room === "hallway") {
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("north", "<a onclick='AutoTypeCommand(\"go north\")' href='#'>north</a>");
+						} 
+						if (room === "gallery" && currentParagraph.innerHTML.includes("look")) {
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("look", "<a href='#' onclick='AutoTypeCommand(\"look at projects\")'>look</a>");
+						}
 						currentParagraph.id = "";
 						SetCommandLineVisiblity(true);
 						window.scrollTo(0, document.body.scrollHeight);
@@ -176,7 +191,7 @@
 				stringToType = stringToType.substring(1, stringToType.length);
 				inputLine.innerHTML = command;
 				if (stringToType.length === 0) {
-					SubmitCommand();
+					//SubmitCommand();
 					userHasControl = true;
 					clearInterval(intervalID);
 				}
@@ -184,6 +199,9 @@
 		}
 
 		function SubmitCommand() {
+			if (command === "") {
+				return;
+			}
 			PrintTextToConsole(">" + command, 0);
 			ExecuteCommand(command);
 			command = "";

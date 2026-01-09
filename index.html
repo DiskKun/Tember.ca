@@ -1,57 +1,242 @@
-<!DOCTYPE html>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179194633-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<html>
 
-  gtag('config', 'UA-179194633-1');
-</script>
-
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Tember.ca Homepage</title>
-    <link rel="shortcut icon" href="./ntpicon.png"/>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<style>
-		#header {
-			margin:0px;
-			padding:10px;
-			border-radius:10px 10px 0px 0px;
+		
+		body {
+			background-color: #111111;
+			font-family: courier;
+			color: #FFFFFF;
+			/* white-space: normal; */
 		}
-		#p, #p2 {
-			margin:0px;
-			padding:10px;
+
+		span {
+			display: inline-block;
 		}
-		#w {
-			margin:0px;
-			padding:10px;
+
+
+		h1 {
+			text-align: center;
 		}
-		#f {
-			font-size:50%;
-			border-radius: 0px 0px 10px 10px;
-			margin:0px;
-			padding:10px;
+
+		p {
+			font-size: 24pt;
+			overflow-wrap: break-word;
 		}
-		ul {
-			list-style-position: inside;
+
+		span {
+			white-space: pre-wrap;
+		}
+
+
+
+		.portfolioItem {
+			width: 30%;
+			border: 1px solid white;
+			display: inline-block;
+			text-align: center;
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+
+		img {
+			width: 80%;
+		}
+
+		#portfolioContent {
+			display: none;
+			/* background-color: grey; */
+			text-align: center;
 		}
 	</style>
-  </head>
-  <body>
-    <h1 id="header">Tember.ca</h1>
-	<p id="p">Here's a list of pages on this site to check out:</p>
-    <div class="portal">
-      <ul id="w">
-		<li><a href="./wideload.html">Wide Load --></a></li>
-        <li><a href="./redshift.html">Red Shift --></a></li>
-		<li><a href="./canvShooter/index.html">Asteroid-65535 --></a></li>
-		<li><a href="./contact.html">Contact Me --></a></li>
-      </ul>
-    </div>
-	<p id="f">©2025</p>
-    <footer class = "footer"><a href="./net.html" id = "net">π</a></footer>
-  </body>
+</head>
+
+<body>
+	<div>
+		<h1>Lucas Hourahine's Portfolio</h1>
+		<div id="portfolioContent" class="animate__animated animate__backInDown">
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
+					item description.</p>
+			</div>
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
+					item description.</p>
+			</div>
+			<div class="portfolioItem">
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
+					item description.</p>
+			</div>
+		</div>
+		<div id="consoleTextOutput"></div>
+
+		<p id="commandLine">
+			<span id="prompt">></span><span id="inputLine"></span><span id="cursor">|</span>
+		</p>
+	</div>
+	<script>
+		var validChars = "1234567890qwertyuiopasdfghjklzxcvbnm,.'()&!?/\": QWERTYUIOPASDFGHJKLZXCVBNM".split('');
+		var commandLine = document.getElementById('commandLine');
+		var inputLine = document.getElementById('inputLine');
+		var consoleTextOutput = document.getElementById('consoleTextOutput');
+		var portfolioContent = document.getElementById('portfolioContent');
+
+		var cursor = document.getElementById('cursor');
+		var cursorBlinkSpeed = 250;
+		var cursorOn = true; // set the text cursor's visibility
+		var cursorVisible = true; // do not modify
+		var userHasControl = true;
+
+		var autoTypeSpeed = 25;
+		var consolePrintSpeed = 25;
+
+		var command = "";
+		// valid rooms: hallway, gallery
+		var room = "hallway";
+
+
+		ready(Setup);
+
+		function Setup() {
+			PrintTextToConsole("You're standing in a dark hallway. The hallway opens into a room to the north.", consolePrintSpeed);
+		}
+		// cursor blink routine
+		setInterval(() => {
+			if (cursorOn) {
+				if (cursorVisible) {
+					cursor.style.opacity = 0;
+					cursorVisible = false;
+				} else {
+					cursor.style.opacity = 1;
+					cursorVisible = true;
+				}
+			} else {
+				cursor.style.opacity = 0;
+			}
+
+		}, cursorBlinkSpeed);
+
+		// keydown routine
+		document.addEventListener('keydown', function (event) {
+
+			if (userHasControl) {
+				if (validChars.includes(event.key)) {
+					command += event.key; // if a valid key was pressed, add it to the command
+				} else if (event.key === "Backspace") {
+					command = command.substring(0, command.length - 1); // if backspace was pressed, remove the last character from the command
+				} else if (event.key === "Enter") {
+					SubmitCommand();
+				}
+				inputLine.innerHTML = command;
+			}
+
+		});
+
+		function PrintTextToConsole(textToPrint, typingInterval) {
+			if (typingInterval === 0) {
+				consoleTextOutput.innerHTML += "<p>" + textToPrint + "</p>";
+				window.scrollTo(0, document.body.scrollHeight);
+			} else {
+				SetCommandLineVisiblity(false);
+				consoleTextOutput.innerHTML += "<p id='tempTextID'></p>";
+				currentParagraph = document.getElementById('tempTextID');
+				intervalID = setInterval(() => {
+					currentParagraph.innerHTML += textToPrint[0];
+					textToPrint = textToPrint.substring(1, textToPrint.length);
+					if (textToPrint.length === 0) {
+						currentParagraph.id = "";
+						SetCommandLineVisiblity(true);
+						window.scrollTo(0, document.body.scrollHeight);
+						clearInterval(intervalID);
+					}
+				}, typingInterval);
+			}
+		}
+
+		function SetCommandLineVisiblity(isVisible) {
+			if (isVisible) {
+				userHasControl = true;
+				commandLine.style.opacity = 1;
+
+			} else {
+				userHasControl = false;
+				commandLine.style.opacity = 0;
+			}
+		}
+
+		function AutoTypeCommand(stringToType) {
+			userHasControl = false; // take control from user
+			command = "";
+			var intervalID = setInterval(() => {
+				command += stringToType[0];
+				stringToType = stringToType.substring(1, stringToType.length);
+				inputLine.innerHTML = command;
+				if (stringToType.length === 0) {
+					SubmitCommand();
+					userHasControl = true;
+					clearInterval(intervalID);
+				}
+			}, autoTypeSpeed)
+		}
+
+		function SubmitCommand() {
+			PrintTextToConsole(">" + command, 0);
+			ExecuteCommand(command);
+			command = "";
+			inputLine.innerHTML = command;
+		}
+
+		function ready(fn) {
+			if (document.readyState !== 'loading') {
+				fn();
+			} else {
+				document.addEventListener('DOMContentLoaded', fn);
+			}
+		}
+
+		function ExecuteCommand(c) {
+			if (c === "n" || c.includes("north")) {
+				PrintTextToConsole("You are in the Portfolio Room. There are many projects worth looking at here.", consolePrintSpeed);
+				room = "gallery";
+			} else if (c === 'l' || c.includes("look")) {
+				if (room === "gallery") {
+					window.scrollTo(0, 0);
+					ShowPortfolio();
+				} else if (room === "hallway") {
+					PrintTextToConsole("The hallway was clearly furnished by a very talented game designer. It is illuminated by the light coming from the room to the north.", consolePrintSpeed);
+				}
+			} else if (c === "h" || c.includes("help")) {
+				PrintTextToConsole("Type 'look' to look around, or a direction (north, south, east, west) to move in that direction.", consolePrintSpeed);
+			} else {
+				PrintTextToConsole("What?", consolePrintSpeed);
+			}
+			// switch (c) {
+			// 	case "n":
+			// 	case "north":
+			// 	case "walk north":
+			// 	case "go north":
+			// 		PrintTextToConsole("You are in the Portfolio Room. There are many projects here. Type 'look' to view them.", consolePrintSpeed);
+			// 		break;
+			// 	case "l":
+			// 	case "look":
+			// 		ShowPortfolio();
+			// 		break;
+				
+			// 	default:
+			// 		PrintTextToConsole("What?", consolePrintSpeed);
+			// 		break;
+			// }
+		}
+
+		function ShowPortfolio() {
+			portfolioContent.style.display = "block";
+		}
+	</script>
+
+</body>
+
 </html>

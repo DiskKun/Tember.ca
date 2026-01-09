@@ -61,13 +61,16 @@
 		h2 {
 			text-align: center;
 		}
+
+		#skipBtn {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
 	<div>
 		<h1>Lucas Hourahine's Portfolio</h1>
-		<h2><a href="#" onclick="AutoTypeCommand('skip');this.style.display = 'none'">(skip)</a></h2>
 		<div id="portfolioContent" class="animate__animated animate__backInDown">
 			<div class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
@@ -109,6 +112,9 @@
 		<p id="commandLine">
 			<span id="prompt">></span><span id="inputLine"></span><span id="cursor">|</span>
 		</p>
+		<h2 class="animate__animated animate__fadeInUp" id="skipBtn"><a href="#"
+				onclick="AutoTypeCommand('skip');this.style.display = 'none'">(skip)</a></h2>
+
 	</div>
 	<script>
 		var validChars = "1234567890qwertyuiopasdfghjklzxcvbnm,.'()&!?/\": QWERTYUIOPASDFGHJKLZXCVBNM".split('');
@@ -135,6 +141,9 @@
 
 		function Setup() {
 			PrintTextToConsole("You're standing in a dark hallway. The hallway opens into a room to the north.", consolePrintSpeed);
+			setTimeout(() => {
+				document.getElementById("skipBtn").style.display = 'block';
+			}, 5000)
 		}
 		// cursor blink routine
 		setInterval(() => {
@@ -154,6 +163,10 @@
 
 		addEventListener("touchstart", (event) => {
 			SubmitCommand();
+		})
+
+		addEventListener("click", (event) => {
+			document.getElementById("skipBtn").style.display = 'block';
 		})
 
 

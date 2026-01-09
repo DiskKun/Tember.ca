@@ -43,6 +43,7 @@
 			padding-top: 20px;
 			padding-bottom: 20px;
 			margin: auto;
+			cursor: pointer;
 			/* margin-top:10px;
 			margin-bottom:10px; */
 		}
@@ -65,6 +66,20 @@
 		#skipBtn {
 			display: none;
 		}
+
+		dialog {
+			width: 80%;
+		}
+
+		button {
+			padding: 20px;
+			background-color: lightgreen;
+			border: none;
+			border-radius: 10px;
+			cursor: pointer;
+			font-family: sans-serif;
+			font-size: large;
+		}
 	</style>
 </head>
 
@@ -72,12 +87,18 @@
 	<div>
 		<h1>Lucas Hourahine's Portfolio</h1>
 		<div id="portfolioContent" class="animate__animated animate__backInDown">
-			<div class="portfolioItem">
+			<div onclick="document.getElementById('itemDialog1').show();window.scrollTo(0, 0);" class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
 				<p><b>Portfolio Item #1</b></p>
 				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
 					item description.</p>
 			</div>
+			<dialog class="animate__animated animate__fadeInUp" id="itemDialog1">
+				<p>Portfolio Item #1</p>
+				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
+				<p>Preview Text</p>
+				<button onclick="document.getElementById('itemDialog1').close()">Go Back</button>
+			</dialog>
 			<div class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
 				<p><b>Portfolio Item #2</b></p>
@@ -189,7 +210,7 @@
 		function PrintTextToConsole(textToPrint, typingInterval) {
 			if (typingInterval === 0) {
 				consoleTextOutput.innerHTML += "<p>" + textToPrint + "</p>";
-				window.scrollTo(0, document.body.scrollHeight);
+				window.scrollTo(0, document.documentElement.scrollHeight);
 			} else {
 				SetCommandLineVisiblity(false);
 				consoleTextOutput.innerHTML += "<p id='tempTextID'></p>";
@@ -199,20 +220,20 @@
 					textToPrint = textToPrint.substring(1, textToPrint.length);
 					if (textToPrint.length === 0) {
 						if (currentParagraph.innerHTML.includes("north") && room === "hallway") {
-							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("north", "<a onclick='AutoTypeCommand(\"go north\")' href='#'>north</a>");
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("north", "<a onclick='AutoTypeCommand(\"go north\")' href='javascript:void(0);'>north</a>");
 						}
 						if (room === "gallery" && currentParagraph.innerHTML.includes("look")) {
-							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("look", "<a href='#' onclick='AutoTypeCommand(\"look at projects\")'>look</a>");
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("look", "<a href='javascript:void(0);' onclick='AutoTypeCommand(\"look at projects\")'>look</a>");
 						}
 						if (currentParagraph.innerHTML.includes("skip")) {
-							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("skip", "<a href='#' onclick='ShowPortfolio()'>skip</a>");
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("skip", "<a href='javascript:void(0);' onclick='AutoTypeCommand(\"skip\")'>skip</a>");
 						}
 						if (currentParagraph.innerHTML.includes("help")) {
-							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("help", "<a href='#' onclick='AutoTypeCommand(\"help\")'>help</a>");
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("help", "<a href='javascript:void(0);' onclick='AutoTypeCommand(\"help\")'>help</a>");
 						}
 						currentParagraph.id = "";
 						SetCommandLineVisiblity(true);
-						window.scrollTo(0, document.body.scrollHeight);
+						window.scrollTo(0, document.documentElement.scrollHeight);
 						clearInterval(intervalID);
 					}
 				}, typingInterval);
@@ -231,9 +252,12 @@
 		}
 
 		function AutoTypeCommand(stringToType) {
+
 			userHasControl = false; // take control from user
 			command = "";
 			var intervalID = setInterval(() => {
+				window.scrollTo(0, document.documentElement.scrollHeight);
+
 				command += stringToType[0];
 				stringToType = stringToType.substring(1, stringToType.length);
 				inputLine.innerHTML = command;
@@ -243,6 +267,7 @@
 					clearInterval(intervalID);
 				}
 			}, autoTypeSpeed)
+
 		}
 
 		function SubmitCommand() {
@@ -278,6 +303,7 @@
 				PrintTextToConsole("Type 'look' to look around, or a direction (north, south, east, west) to move in that direction.", consolePrintSpeed);
 			} else if (c === "skip") {
 				window.scrollTo(0, 0);
+
 				ShowPortfolio();
 			} else {
 				PrintTextToConsole("Command not recognized. Type help for a list of commands, or skip to go straight to the portfolio.", consolePrintSpeed);

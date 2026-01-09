@@ -113,7 +113,7 @@
 			<span id="prompt">></span><span id="inputLine"></span><span id="cursor">|</span>
 		</p>
 		<h2 class="animate__animated animate__fadeInUp" id="skipBtn"><a href="#"
-				onclick="AutoTypeCommand('skip');this.style.display = 'none'">(skip)</a></h2>
+				onclick="AutoTypeCommand('skip');this.style.display = 'none'">Get me to the goods!</a></h2>
 
 	</div>
 	<script>
@@ -140,9 +140,9 @@
 		ready(Setup);
 
 		function Setup() {
-			PrintTextToConsole("You're standing in a dark hallway. The hallway opens into a room to the north.", consolePrintSpeed);
+			PrintTextToConsole("You're standing in a dark hallway. Light spills out of a room to the north.", consolePrintSpeed);
 			setTimeout(() => {
-				document.getElementById("skipBtn").style.display = 'block';
+				// document.getElementById("skipBtn").style.display = 'block';
 			}, 5000)
 		}
 		// cursor blink routine
@@ -166,7 +166,7 @@
 		})
 
 		addEventListener("click", (event) => {
-			document.getElementById("skipBtn").style.display = 'block';
+			// document.getElementById("skipBtn").style.display = 'block';
 		})
 
 
@@ -203,6 +203,12 @@
 						}
 						if (room === "gallery" && currentParagraph.innerHTML.includes("look")) {
 							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("look", "<a href='#' onclick='AutoTypeCommand(\"look at projects\")'>look</a>");
+						}
+						if (currentParagraph.innerHTML.includes("skip")) {
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("skip", "<a href='#' onclick='ShowPortfolio()'>skip</a>");
+						}
+						if (currentParagraph.innerHTML.includes("help")) {
+							currentParagraph.innerHTML = currentParagraph.innerHTML.replaceAll("help", "<a href='#' onclick='AutoTypeCommand(\"help\")'>help</a>");
 						}
 						currentParagraph.id = "";
 						SetCommandLineVisiblity(true);
@@ -274,24 +280,8 @@
 				window.scrollTo(0, 0);
 				ShowPortfolio();
 			} else {
-				PrintTextToConsole("What?", consolePrintSpeed);
+				PrintTextToConsole("Command not recognized. Type help for a list of commands, or skip to go straight to the portfolio.", consolePrintSpeed);
 			}
-			// switch (c) {
-			// 	case "n":
-			// 	case "north":
-			// 	case "walk north":
-			// 	case "go north":
-			// 		PrintTextToConsole("You are in the Portfolio Room. There are many projects here. Type 'look' to view them.", consolePrintSpeed);
-			// 		break;
-			// 	case "l":
-			// 	case "look":
-			// 		ShowPortfolio();
-			// 		break;
-
-			// 	default:
-			// 		PrintTextToConsole("What?", consolePrintSpeed);
-			// 		break;
-			// }
 		}
 
 		function ShowPortfolio() {

@@ -20,7 +20,7 @@ a:link {
 
 }
 
-img {
+img, iframe {
     object-fit: cover;
     width: 33.33%;
     height:100%;

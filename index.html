@@ -99,7 +99,7 @@
 		<div id="portfolioContent" class="animate__animated animate__backInDown">
 			<div onclick="document.getElementById('itemDialog1').show();window.scrollTo(0, 0);" class="portfolioItem">
 				<img src="img/diskkun/hairlessnude.jpg" class="previewImage">
-				<p><b>Portfolio Item #1</b></p>
+				<p><b>Code Ninjas: The Trading Card Game</b></p>
 				<p class="previewText">This is some placeholder text that will eventually be populated with a portfolio
 					item description.</p>
 			</div>
@@ -144,7 +144,7 @@
 			<span id="prompt">></span><span id="inputLine"></span><span id="cursor">|</span>
 		</p>
 		<h2 class="animate__animated animate__fadeInUp" id="skipBtn"><a href="#"
-				onclick="AutoTypeCommand('skip');this.style.display = 'none'">Get me to the goods!</a></h2>
+				onclick="ShowPortfolio();this.style.display = 'none'">Get me to the goods!</a></h2>
 
 	</div>
 	<script>
@@ -302,7 +302,7 @@
 			if (c === "n" || c.includes("north")) {
 				PrintTextToConsole("You are in the Portfolio Room. There are many projects worth looking at here.", consolePrintSpeed);
 				room = "gallery";
-			} else if (c === 'l' || c.includes("look")) {
+			} else if (c === 'l' || c.includes("look") || c.includes("show") || c.includes("view")) {
 				if (room === "gallery") {
 					window.scrollTo(0, 0);
 					ShowPortfolio();
@@ -321,8 +321,9 @@
 		}
 
 		function ShowPortfolio() {
-			portfolioContent.style.display = "grid";
-			consoleTextOutput.innerHTML = "";
+			// portfolioContent.style.display = "grid";
+			// consoleTextOutput.innerHTML = "";
+			window.location.replace("./portfolio.html")
 		}
 	</script>
 

@@ -1,0 +1,52 @@
+body {
+    background-color: black;
+    font-family: 'Courier', Courier, monospace;
+    color:white;
+}
+
+.backlink {
+    color:white;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.images {
+    /* display: table; */
+    height: 400px;
+    border:1px solid white;
+    width:100%;
+
+}
+
+img {
+    object-fit: cover;
+    width: 33.33%;
+    height:100%;
+    float:left;
+}
+
+.header {
+
+}
+
+.title {
+
+}
+
+.tagline {
+
+}
+
+.descriptionBox {
+
+}
+
+.description {
+
+}
+
+.extras {
+
+}

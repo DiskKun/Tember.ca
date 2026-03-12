@@ -1,0 +1,151 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<style>
+		
+		body {
+			
+			margin-top: 20px;
+			padding: 0 1.25rem;
+			background-color: #111111;
+			font-family: courier;
+			color: #FFFFFF;
+		}
+
+		
+
+
+
+		h1 {
+			text-align: center;
+		}
+
+		p {
+			font-size: 20pt;
+			overflow-wrap: break-word;
+		}
+
+		span {
+			white-space: pre-wrap;
+		}
+
+		a {
+			color: white;
+			cursor: default;
+		}
+
+
+
+		.portfolioItem {
+			width: 90%;
+			height: 90%;
+			border: 1px solid white;
+			display: inline-block;
+			text-align: center;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding: 30px 10px 10px 10px;
+			margin:10px 10px 30px 10px;
+			cursor: pointer;
+			/* margin-top:10px;
+			margin-bottom:10px; */
+		}
+
+		.pItemImage {
+			/* width: 30%; */
+			display: inline-block;
+		}
+
+		.pItemImageGrid {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			text-align: center;
+			border: 1px solid black;
+		}
+
+		img {
+			width: 80%;
+		}
+
+		#portfolioContent {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			text-align: center;
+			width: 100%;
+			/* border: 1px solid white; */
+		}
+
+		h2 {
+			text-align: center;
+		}
+
+		#skipBtn {
+			/* display: none; */
+			font-size: 100%;
+			text-align: right;
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+		}
+
+		dialog {
+			width: 80%;
+		}
+
+		.animate__animated.animate__fadeInUp {
+			--animate-duration: 0.2s;
+		}
+
+		button {
+			padding: 20px;
+			background-color: white;
+			border: 1px solid black;
+			border-radius: 10px;
+			cursor: pointer;
+			font-family: sans-serif;
+			font-size: large;
+		}
+
+		dialog {
+			width: 80%;
+			height: 80%;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<h1>Lucas Hourahine's Portfolio</h1>
+		<div id="portfolioContent">
+			<a href="p_cntcg.html"> <div class="portfolioItem">
+				<img src="img/portfolio/cntcg/poster.png" class="previewImage">
+				<p><b>Code Ninjas: The Trading Card Game</b></p>
+				<p class="previewText">The officially licensed physical trading card game for Code Ninjas Burlington.
+				</p>
+				<p><i>Role: Lead Designer</i></p>
+			</div></a>
+			<a href="p_gg.html">
+			<div class="portfolioItem">
+				<img src="img/portfolio/gg/gg_thumb.png" class="previewImage">
+				<p><b>Gathering Gold</b></p>
+				<p class="previewText">A cooperative puzzle game made in a week.</p>
+				<p><i>Role: Lead Programmer</i></p>
+			</div>
+			</a>
+			<a href="p_hm.html">
+			<div class="portfolioItem">
+				<img src="img/portfolio/hm/hm_thumb.png" class="previewImage">
+				<p><b>Haunted Mouse</b></p>
+				<p class="previewText">An alt-control action game made for Fall Design Week 2025.</p>
+				<p><i>Role: Lead Programmer</i></p>
+			</div>
+			</a>
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>
